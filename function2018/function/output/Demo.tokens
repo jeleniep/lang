@@ -1,0 +1,14 @@
+T__0=1
+WRITE=2
+READ=3
+FUNCTION=4
+ENDFUNCTION=5
+ID=6
+INT=7
+NEWLINE=8
+WS=9
+'='=1
+'write'=2
+'read'=3
+'function'=4
+'endfunction'=5
