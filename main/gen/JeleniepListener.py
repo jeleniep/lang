@@ -91,7 +91,8 @@ class JeleniepListener(ParseTreeListener):
         if (ctx.OPERATOR_STRONG() or ctx.OPERATOR_WEAK()):
             self.a.append(str(ctx.OPERATOR_STRONG() or ctx.OPERATOR_WEAK()))
         elif (ctx.value()): 
-            self.a.append(str(ctx.value().INT_VALUE()))
+            value = (ctx.value().INT_VALUE() or ctx.value().DOUBLE_VALUE() or ctx.value().ID())
+            self.a.append(str(value))
         print("enterExpr", ctx.OPERATOR_STRONG(),
               ctx.OPERATOR_WEAK(), ctx.expr())
       
