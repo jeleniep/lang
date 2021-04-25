@@ -11,7 +11,7 @@ else:
 
 def serializedATN():
     with StringIO() as buf:
-        buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\26")
+        buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\27")
         buf.write("X\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b")
         buf.write("\t\b\4\t\t\t\4\n\t\n\3\2\3\2\3\3\3\3\3\3\7\3\32\n\3\f")
         buf.write("\3\16\3\35\13\3\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\5")
@@ -19,26 +19,26 @@ def serializedATN():
         buf.write("\3\6\3\6\3\7\3\7\3\7\3\7\3\7\3\7\5\7=\n\7\3\7\3\7\3\7")
         buf.write("\3\7\3\7\3\7\7\7E\n\7\f\7\16\7H\13\7\3\b\3\b\3\t\3\t\3")
         buf.write("\n\3\n\3\n\7\nQ\n\n\f\n\16\nT\13\n\3\n\3\n\3\n\2\3\f\13")
-        buf.write("\2\4\6\b\n\f\16\20\22\2\5\3\2\16\17\3\2\21\24\3\2\23\24")
-        buf.write("\2W\2\24\3\2\2\2\4\33\3\2\2\2\6/\3\2\2\2\b\61\3\2\2\2")
-        buf.write("\n\64\3\2\2\2\f<\3\2\2\2\16I\3\2\2\2\20K\3\2\2\2\22R\3")
-        buf.write("\2\2\2\24\25\5\4\3\2\25\3\3\2\2\2\26\27\5\6\4\2\27\30")
-        buf.write("\7\25\2\2\30\32\3\2\2\2\31\26\3\2\2\2\32\35\3\2\2\2\33")
-        buf.write("\31\3\2\2\2\33\34\3\2\2\2\34\5\3\2\2\2\35\33\3\2\2\2\36")
-        buf.write("\37\7\f\2\2\37 \7\3\2\2 !\5\22\n\2!\"\7\4\2\2\"\60\3\2")
-        buf.write("\2\2#$\7\22\2\2$\'\7\5\2\2%(\5\f\7\2&(\5\16\b\2\'%\3\2")
-        buf.write("\2\2\'&\3\2\2\2(\60\3\2\2\2)*\7\r\2\2*+\7\3\2\2+,\5\22")
-        buf.write("\n\2,-\7\4\2\2-\60\3\2\2\2.\60\5\b\5\2/\36\3\2\2\2/#\3")
-        buf.write("\2\2\2/)\3\2\2\2/.\3\2\2\2\60\7\3\2\2\2\61\62\5\n\6\2")
-        buf.write("\62\63\7\22\2\2\63\t\3\2\2\2\64\65\t\2\2\2\65\13\3\2\2")
-        buf.write("\2\66\67\b\7\1\2\67=\5\16\b\289\7\3\2\29:\5\f\7\2:;\7")
-        buf.write("\4\2\2;=\3\2\2\2<\66\3\2\2\2<8\3\2\2\2=F\3\2\2\2>?\f\5")
-        buf.write("\2\2?@\7\6\2\2@E\5\f\7\6AB\f\4\2\2BC\7\7\2\2CE\5\f\7\5")
-        buf.write("D>\3\2\2\2DA\3\2\2\2EH\3\2\2\2FD\3\2\2\2FG\3\2\2\2G\r")
-        buf.write("\3\2\2\2HF\3\2\2\2IJ\t\3\2\2J\17\3\2\2\2KL\t\4\2\2L\21")
-        buf.write("\3\2\2\2MN\5\16\b\2NO\7\20\2\2OQ\3\2\2\2PM\3\2\2\2QT\3")
-        buf.write("\2\2\2RP\3\2\2\2RS\3\2\2\2SU\3\2\2\2TR\3\2\2\2UV\5\16")
-        buf.write("\b\2V\23\3\2\2\2\t\33\'/<DFR")
+        buf.write("\2\4\6\b\n\f\16\20\22\2\5\4\2\16\17\21\21\3\2\22\25\3")
+        buf.write("\2\24\25\2W\2\24\3\2\2\2\4\33\3\2\2\2\6/\3\2\2\2\b\61")
+        buf.write("\3\2\2\2\n\64\3\2\2\2\f<\3\2\2\2\16I\3\2\2\2\20K\3\2\2")
+        buf.write("\2\22R\3\2\2\2\24\25\5\4\3\2\25\3\3\2\2\2\26\27\5\6\4")
+        buf.write("\2\27\30\7\26\2\2\30\32\3\2\2\2\31\26\3\2\2\2\32\35\3")
+        buf.write("\2\2\2\33\31\3\2\2\2\33\34\3\2\2\2\34\5\3\2\2\2\35\33")
+        buf.write("\3\2\2\2\36\37\7\f\2\2\37 \7\3\2\2 !\5\22\n\2!\"\7\4\2")
+        buf.write("\2\"\60\3\2\2\2#$\7\23\2\2$\'\7\5\2\2%(\5\f\7\2&(\5\16")
+        buf.write("\b\2\'%\3\2\2\2\'&\3\2\2\2(\60\3\2\2\2)*\7\r\2\2*+\7\3")
+        buf.write("\2\2+,\5\22\n\2,-\7\4\2\2-\60\3\2\2\2.\60\5\b\5\2/\36")
+        buf.write("\3\2\2\2/#\3\2\2\2/)\3\2\2\2/.\3\2\2\2\60\7\3\2\2\2\61")
+        buf.write("\62\5\n\6\2\62\63\7\23\2\2\63\t\3\2\2\2\64\65\t\2\2\2")
+        buf.write("\65\13\3\2\2\2\66\67\b\7\1\2\67=\5\16\b\289\7\3\2\29:")
+        buf.write("\5\f\7\2:;\7\4\2\2;=\3\2\2\2<\66\3\2\2\2<8\3\2\2\2=F\3")
+        buf.write("\2\2\2>?\f\5\2\2?@\7\6\2\2@E\5\f\7\6AB\f\4\2\2BC\7\7\2")
+        buf.write("\2CE\5\f\7\5D>\3\2\2\2DA\3\2\2\2EH\3\2\2\2FD\3\2\2\2F")
+        buf.write("G\3\2\2\2G\r\3\2\2\2HF\3\2\2\2IJ\t\3\2\2J\17\3\2\2\2K")
+        buf.write("L\t\4\2\2L\21\3\2\2\2MN\5\16\b\2NO\7\20\2\2OQ\3\2\2\2")
+        buf.write("PM\3\2\2\2QT\3\2\2\2RP\3\2\2\2RS\3\2\2\2SU\3\2\2\2TR\3")
+        buf.write("\2\2\2UV\5\16\b\2V\23\3\2\2\2\t\33\'/<DFR")
         return buf.getvalue()
 
 
@@ -54,13 +54,13 @@ class JeleniepParser ( Parser ):
 
     literalNames = [ "<INVALID>", "'('", "')'", "'='", "<INVALID>", "<INVALID>", 
                      "'+'", "'*'", "'/'", "'-'", "'write'", "'read'", "'int'", 
-                     "'float'", "','" ]
+                     "'float'", "','", "'string'" ]
 
     symbolicNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                       "OPERATOR_STRONG", "OPERATOR_WEAK", "ADD", "MULT", 
                       "DIVIDE", "MINUS", "WRITE", "READ", "INT", "DOUBLE", 
-                      "COMMA", "STRING", "ID", "INT_VALUE", "DOUBLE_VALUE", 
-                      "NEWLINE", "WS" ]
+                      "COMMA", "STRING", "STRING_VALUE", "ID", "INT_VALUE", 
+                      "DOUBLE_VALUE", "NEWLINE", "WS" ]
 
     RULE_prog = 0
     RULE_block = 1
@@ -91,11 +91,12 @@ class JeleniepParser ( Parser ):
     DOUBLE=13
     COMMA=14
     STRING=15
-    ID=16
-    INT_VALUE=17
-    DOUBLE_VALUE=18
-    NEWLINE=19
-    WS=20
+    STRING_VALUE=16
+    ID=17
+    INT_VALUE=18
+    DOUBLE_VALUE=19
+    NEWLINE=20
+    WS=21
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
@@ -192,7 +193,7 @@ class JeleniepParser ( Parser ):
             self.state = 25
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << JeleniepParser.WRITE) | (1 << JeleniepParser.READ) | (1 << JeleniepParser.INT) | (1 << JeleniepParser.DOUBLE) | (1 << JeleniepParser.ID))) != 0):
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << JeleniepParser.WRITE) | (1 << JeleniepParser.READ) | (1 << JeleniepParser.INT) | (1 << JeleniepParser.DOUBLE) | (1 << JeleniepParser.STRING) | (1 << JeleniepParser.ID))) != 0):
                 self.state = 20
                 self.stat()
                 self.state = 21
@@ -367,7 +368,7 @@ class JeleniepParser ( Parser ):
                 self.state = 42
                 self.match(JeleniepParser.T__1)
                 pass
-            elif token in [JeleniepParser.INT, JeleniepParser.DOUBLE]:
+            elif token in [JeleniepParser.INT, JeleniepParser.DOUBLE, JeleniepParser.STRING]:
                 localctx = JeleniepParser.DeclareVariableContext(self, localctx)
                 self.enterOuterAlt(localctx, 4)
                 self.state = 44
@@ -445,6 +446,9 @@ class JeleniepParser ( Parser ):
         def DOUBLE(self):
             return self.getToken(JeleniepParser.DOUBLE, 0)
 
+        def STRING(self):
+            return self.getToken(JeleniepParser.STRING, 0)
+
         def getRuleIndex(self):
             return JeleniepParser.RULE_var_type
 
@@ -468,7 +472,7 @@ class JeleniepParser ( Parser ):
             self.enterOuterAlt(localctx, 1)
             self.state = 50
             _la = self._input.LA(1)
-            if not(_la==JeleniepParser.INT or _la==JeleniepParser.DOUBLE):
+            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << JeleniepParser.INT) | (1 << JeleniepParser.DOUBLE) | (1 << JeleniepParser.STRING))) != 0)):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -531,7 +535,7 @@ class JeleniepParser ( Parser ):
             self.state = 58
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [JeleniepParser.STRING, JeleniepParser.ID, JeleniepParser.INT_VALUE, JeleniepParser.DOUBLE_VALUE]:
+            if token in [JeleniepParser.STRING_VALUE, JeleniepParser.ID, JeleniepParser.INT_VALUE, JeleniepParser.DOUBLE_VALUE]:
                 self.state = 53
                 self.value()
                 pass
@@ -614,8 +618,8 @@ class JeleniepParser ( Parser ):
         def DOUBLE_VALUE(self):
             return self.getToken(JeleniepParser.DOUBLE_VALUE, 0)
 
-        def STRING(self):
-            return self.getToken(JeleniepParser.STRING, 0)
+        def STRING_VALUE(self):
+            return self.getToken(JeleniepParser.STRING_VALUE, 0)
 
         def getRuleIndex(self):
             return JeleniepParser.RULE_value
@@ -640,7 +644,7 @@ class JeleniepParser ( Parser ):
             self.enterOuterAlt(localctx, 1)
             self.state = 71
             _la = self._input.LA(1)
-            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << JeleniepParser.STRING) | (1 << JeleniepParser.ID) | (1 << JeleniepParser.INT_VALUE) | (1 << JeleniepParser.DOUBLE_VALUE))) != 0)):
+            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << JeleniepParser.STRING_VALUE) | (1 << JeleniepParser.ID) | (1 << JeleniepParser.INT_VALUE) | (1 << JeleniepParser.DOUBLE_VALUE))) != 0)):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)

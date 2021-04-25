@@ -176,7 +176,7 @@ class MathCalculations:
                 print("end2")
                 found = False    
 
-
+        print("z heada", head.value)
         return head.value
 
 

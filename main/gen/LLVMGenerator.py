@@ -17,6 +17,7 @@ class LLVMGenerator:
     header_text = ""
     main_text = ""
     tmp = 1
+    tmp_header = 1
 
     def __init__(self):
         self.variables = {}
@@ -104,8 +105,15 @@ class LLVMGenerator:
     def declare(self, id, var_type):
       name = str(id)
       var_type_str = str(var_type)
+      print(var_type_str, "123123123")
       if name not in self.variables:
-        self.main_text += f"%{name} = alloca {GeneratorHelpers.declare_types[var_type_str]}\n"
+        if (var_type_str == "string"):
+          self.main_text += f"%{name} = alloca {GeneratorHelpers.declare_types[var_type_str]}\n"
+          self.main_text += f"%{self.tmp} = call noalias i8* @malloc(i64 255) #3\n"
+          self.main_text += f"store i8* %{self.tmp}, i8** %{name}\n"
+          self.tmp += 1
+        else:
+          self.main_text += f"%{name} = alloca {GeneratorHelpers.declare_types[var_type_str]}\n"
         self.variables[name] = GeneratorHelpers.declare_types[var_type_str]
       else:
           raise Exception(f"ERROR: Redeclaration of variable {name}")
@@ -114,11 +122,18 @@ class LLVMGenerator:
     def assign(self, id, value):
       name = str(id)
       if name in self.variables:
-        if (type(value) == str and value[0] == "%"):
+        if (self.variables[name] == "i8*"):
+          val = str(value)[:-1] + "\\00\""
+          title = f"@str.{self.tmp_header}"
+          self.tmp_header += 1
+          self.header_text += f"{title} = constant [{len(str(value)) - 1} x i8] c{val}\n"    
+          self.main_text += f"store i8* getelementptr inbounds ([{len(str(value)) - 1} x i8], [{len(str(value)) - 1} x i8]* {title}, i32 0, i32 0), i8** %{name}\n"
+          return
+        elif (type(value) == str and value[0] == "%"):
           self.main_text += f"store {self.variables[name]} {value}, {self.variables[name]}* %{name}\n"
         elif (self.variables[name] == 'i32'):
           value = int(value)
-          self.main_text += f"store {self.variables[name]} {value}, {self.variables[name]}* %{name}\n"
+        self.main_text += f"store {self.variables[name]} {value}, {self.variables[name]}* %{name}\n"
       else:
           raise Exception(f"ERROR: Variable {name} not exist")
 
@@ -127,7 +142,10 @@ class LLVMGenerator:
       if name in self.variables:
         var_type = self.variables[name]
         printf_type = GeneratorHelpers.printf_types[var_type]
-        self.main_text += f"%{self.tmp} = load {var_type}, {var_type}* %{name}\n"
+        if (var_type == "i8*"):
+          self.main_text += f"%{self.tmp} = load i8*, i8** %{id}\n"
+        else:
+          self.main_text += f"%{self.tmp} = load {var_type}, {var_type}* %{name}\n"
         self.tmp += 1
         self.main_text += f"%{self.tmp} = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ({printf_type[0]}, i32 0, i32 0), {printf_type[1]} %{self.tmp-1})\n"
         self.tmp += 1
@@ -136,10 +154,18 @@ class LLVMGenerator:
 
     def scanf(self, id):      
       name = str(id)
+      local_id = id
       if name in self.variables:
         var_type = self.variables[name]
-        scanf_type = GeneratorHelpers.scanf_types[var_type] 
-        self.main_text += f"%{self.tmp} = call i32 (i8*, ...) @__isoc99_scanf(i8* getelementptr inbounds ({scanf_type[0]}, i32 0, i32 0), {scanf_type[1]} %{id})\n"
+        scanf_type = GeneratorHelpers.scanf_types[var_type]
+        if (var_type == "i8*"):
+          self.main_text += f"%{self.tmp} = load i8*, i8** %{id}\n"
+          local_id = self.tmp
+          self.tmp += 1
+          print("stretrtrtr")
+        self.main_text += f"%{self.tmp} = call i32 (i8*, ...) @__isoc99_scanf(i8* getelementptr inbounds ({scanf_type[0]}, i32 0, i32 0), {scanf_type[1]} %{local_id})\n"
+                                    #  %4 = call i32 (i8*, ...) @__isoc99_scanf(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str, i32 0, i32 0), i8* %3)
+
         self.tmp += 1
    
 
@@ -147,6 +173,7 @@ class LLVMGenerator:
       text = ""
       text += "declare i32 @printf(i8*, ...)\n"
       text += "declare i32 @__isoc99_scanf(i8*, ...)\n"
+      text += "@str = constant [3 x i8] c\"%s\\00\"\n"
       text += "@strp = constant [4 x i8] c\"%d\\0A\\00\"\n"
       text += "@strs = constant [3 x i8] c\"%d\\00\"\n"
       text += "@strpd = constant [4 x i8] c\"%f\\0A\00\"\n"
@@ -155,5 +182,7 @@ class LLVMGenerator:
       text += "define i32 @main() nounwind{\n"
       text += self.main_text
       text += "ret i32 0 }\n"
+      text += "; Function Attrs: nounwind\n"
+      text += "declare noalias i8* @malloc(i64) #1\n"
       return text
    

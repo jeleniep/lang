@@ -16,6 +16,7 @@ class JeleniepListener(ParseTreeListener):
         self.generator = LLVMGenerator()
         self.filename = filename
         self.a = []
+        self.str = None
 
     # Enter a parse tree produced by JeleniepParser#prog.
     def enterProg(self, ctx: JeleniepParser.ProgContext):
@@ -55,10 +56,15 @@ class JeleniepListener(ParseTreeListener):
     # Exit a parse tree produced by JeleniepParser#assign.
     def exitAssign(self, ctx: JeleniepParser.AssignContext):
         print("exit Assign")
-        currentMathCalc = MathCalculations()
-        val_id = currentMathCalc.build(self.a, self.generator)
-        self.generator.assign(ctx.ID(), val_id)
-        self.a = []
+        if (self.str):
+            self.generator.assign(ctx.ID(), self.str)
+            self.str = None
+        else:
+            currentMathCalc = MathCalculations()
+            val_id = currentMathCalc.build(self.a, self.generator)
+            print("valID", val_id)
+            self.generator.assign(ctx.ID(), val_id)
+            self.a = []
 
         pass
 
@@ -83,7 +89,7 @@ class JeleniepListener(ParseTreeListener):
     def enterDeclare(self, ctx: JeleniepParser.DeclareContext):
         print("enterDeclare")
         print(ctx.ID(), ctx.var_type().INT() or ctx.var_type().DOUBLE())
-        self.generator.declare(ctx.ID(), ctx.var_type().INT() or ctx.var_type().DOUBLE())
+        self.generator.declare(ctx.ID(), ctx.var_type().INT() or ctx.var_type().DOUBLE() or ctx.var_type().STRING())
 
     # Exit a parse tree produced by JeleniepParser#declare.
     def exitDeclare(self, ctx: JeleniepParser.DeclareContext):
@@ -99,13 +105,16 @@ class JeleniepListener(ParseTreeListener):
 
     # Enter a parse tree produced by JeleniepParser#expr.
     def enterExpr(self, ctx: JeleniepParser.ExprContext):
+        print("enterExpr", ctx.OPERATOR_STRONG(), ctx.OPERATOR_WEAK(), ctx.expr())
         if (ctx.OPERATOR_STRONG() or ctx.OPERATOR_WEAK()):
             self.a.append(str(ctx.OPERATOR_STRONG() or ctx.OPERATOR_WEAK()))
-        elif (ctx.value()): 
-            value = (ctx.value().INT_VALUE() or ctx.value().DOUBLE_VALUE() or ctx.value().ID())
-            self.a.append(str(value))
-        print("enterExpr", ctx.OPERATOR_STRONG(),
-              ctx.OPERATOR_WEAK(), ctx.expr())
+        elif (ctx.value()):
+            if(ctx.value().STRING_VALUE()): 
+                self.str = ctx.value().STRING_VALUE()
+            else:
+                value = (ctx.value().INT_VALUE() or ctx.value().DOUBLE_VALUE() or ctx.value().ID())
+                self.a.append(str(value))
+
       
         if (ctx.value()):
             print((ctx.value().INT_VALUE()))
