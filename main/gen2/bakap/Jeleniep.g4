@@ -3,11 +3,11 @@ grammar Jeleniep;
 prog: block 
 ; 
 
-block: ( stat NEWLINE )* 
+block: ( stat? NEWLINE )* 
 ; 
 
 stat: WRITE '(' paramdefs ')'			#write
-	| ID '=' (expr|value)			#assign
+	| ID '=' expr0			#assign
 	| READ '(' paramdefs ')'   			#read 
 	| declare  #declareVariable 
 ;
@@ -15,23 +15,18 @@ stat: WRITE '(' paramdefs ')'			#write
 declare: var_type ID 
 ;
 
-var_type: INT | DOUBLE | STRING
+var_type: INT | DOUBLE
 ;
 
-
-
-expr:	value
-	|   expr OPERATOR_STRONG expr
-	|   expr OPERATOR_WEAK expr
-    |	'(' expr ')'
-	;
-
-OPERATOR_STRONG: DIVIDE
-	| MULT
+expr0:  value			#single0
+      | expr0 OPERATOR expr0		#calculation 
+	  | '(' expr0 ')' #parenthesis
 ;
 
-OPERATOR_WEAK:  ADD
+OPERATOR: ADD
 	| MINUS
+	| DIVIDE
+	| MULT
 ;
 
 ADD: '+'
@@ -49,7 +44,7 @@ MINUS: '-'
 value: ID
        | INT_VALUE
 	   | DOUBLE_VALUE
-	   | STRING_VALUE
+	   | STRING
 ;	
 
 numeric_value: INT_VALUE
@@ -68,32 +63,25 @@ INT: 'int'
 DOUBLE: 'float'
 ;
 
-
-
 COMMA: ','
 ;
 
 paramdefs:  (value COMMA)* value      
 ;
 
-STRING: 'string'
-;
-
-STRING_VALUE :  '"' ( ~('\\'|'"') )* '"'
+STRING :  '"' ( ~('\\'|'"') )* '"'
 ;
 
 ID:   ('a'..'z'|'A'..'Z')+
 ;
 
-INT_VALUE:   [0-9]+
+INT_VALUE:   '0'..'9'+
 ;
-
-
 
 DOUBLE_VALUE:   '0'..'9'+'.''0'..'9'+
 ;
 
-NEWLINE:	[\r\n]+ 
+NEWLINE:	'\r'? '\n'
 ;
 
 WS:   (' '|'\t')+ -> skip

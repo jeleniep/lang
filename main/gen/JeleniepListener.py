@@ -1,6 +1,7 @@
 # Generated from Jeleniep.g4 by ANTLR 4.9.2
 from MathCalculations import MathCalculations
 from antlr4 import *
+from LLVMGenerator import LLVMGenerator
 if __name__ is not None and "." in __name__:
     from .JeleniepParser import JeleniepParser
 else:
@@ -11,7 +12,9 @@ else:
 
 class JeleniepListener(ParseTreeListener):
 
-    def __init__(self):
+    def __init__(self, filename):
+        self.generator = LLVMGenerator()
+        self.filename = filename
         self.a = []
 
     # Enter a parse tree produced by JeleniepParser#prog.
@@ -20,6 +23,10 @@ class JeleniepListener(ParseTreeListener):
 
     # Exit a parse tree produced by JeleniepParser#prog.
     def exitProg(self, ctx: JeleniepParser.ProgContext):
+        f = open(f"{self.filename.split('.')[0]}.jeleniep", "w")
+        f.write(self.generator.generate())
+        f.close()
+        print(self.generator.generate())
         pass
 
     # Enter a parse tree produced by JeleniepParser#block.
@@ -32,7 +39,8 @@ class JeleniepListener(ParseTreeListener):
 
     # Enter a parse tree produced by JeleniepParser#write.
     def enterWrite(self, ctx: JeleniepParser.WriteContext):
-        pass
+        self.generator.printf(ctx.paramdefs().value(0).ID())
+
 
     # Exit a parse tree produced by JeleniepParser#write.
     def exitWrite(self, ctx: JeleniepParser.WriteContext):
@@ -48,14 +56,15 @@ class JeleniepListener(ParseTreeListener):
     def exitAssign(self, ctx: JeleniepParser.AssignContext):
         print("exit Assign")
         currentMathCalc = MathCalculations()
-        currentMathCalc.build(self.a)
-    
+        val_id = currentMathCalc.build(self.a, self.generator)
+        self.generator.assign(ctx.ID(), val_id)
         self.a = []
 
         pass
 
     # Enter a parse tree produced by JeleniepParser#read.
     def enterRead(self, ctx: JeleniepParser.ReadContext):
+        self.generator.scanf(ctx.paramdefs().value(0).ID())
         pass
 
     # Exit a parse tree produced by JeleniepParser#read.
@@ -72,7 +81,9 @@ class JeleniepListener(ParseTreeListener):
 
     # Enter a parse tree produced by JeleniepParser#declare.
     def enterDeclare(self, ctx: JeleniepParser.DeclareContext):
-        pass
+        print("enterDeclare")
+        print(ctx.ID(), ctx.var_type().INT() or ctx.var_type().DOUBLE())
+        self.generator.declare(ctx.ID(), ctx.var_type().INT() or ctx.var_type().DOUBLE())
 
     # Exit a parse tree produced by JeleniepParser#declare.
     def exitDeclare(self, ctx: JeleniepParser.DeclareContext):
