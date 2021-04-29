@@ -3,7 +3,7 @@ from GeneratorHelpers import GeneratorHelpers
 def checkType(var):
     try: 
         float(var)
-        return 'float'
+        return 'double'
     except ValueError:
         try: 
             int(var)
@@ -59,7 +59,7 @@ class LLVMGenerator:
     
     def add(self, val_a, val_b):
       a, b, var_type_a, var_type_b = self.load_values(val_a, val_b)
-      if (var_type_a == 'float' or var_type_b == 'float'):
+      if (var_type_a == 'double' or var_type_b == 'double'):
         a = a if (a[0] == '%') else str(float(a))
         b = b if (b[0] == '%') else str(float(b)) 
         self.main_text += f"%{self.tmp} = fadd double {a}, {b}\n"      
@@ -70,7 +70,7 @@ class LLVMGenerator:
 
     def minus(self, val_a, val_b):
       a, b, var_type_a, var_type_b = self.load_values(val_a, val_b)
-      if (var_type_a == 'float' or var_type_b == 'float'):
+      if (var_type_a == 'double' or var_type_b == 'double'):
         a = a if (a[0] == '%') else str(float(a))
         b = b if (b[0] == '%') else str(float(b))
         self.main_text += f"%{self.tmp} = fsub double {a}, {b}\n"      
@@ -81,7 +81,7 @@ class LLVMGenerator:
 
     def mul(self, val_a, val_b):
       a, b, var_type_a, var_type_b = self.load_values(val_a, val_b)
-      if (var_type_a == 'float' or var_type_b == 'float'):
+      if (var_type_a == 'double' or var_type_b == 'double'):
         print(val_a, a, "as", type(a))
         a = a if (a[0] == '%') else str(float(a))
         b = b if (b[0] == '%') else str(float(b)) 
@@ -93,7 +93,8 @@ class LLVMGenerator:
 
     def div(self, val_a, val_b):
       a, b, var_type_a, var_type_b = self.load_values(val_a, val_b)
-      if (var_type_a == 'float' or var_type_b == 'float'):
+      print("types", var_type_a, var_type_b)
+      if (var_type_a == 'double' or var_type_b == 'double'):
         a = a if (a[0] == '%') else str(float(a))
         b = b if (b[0] == '%') else str(float(b)) 
         self.main_text += f"%{self.tmp} = fdiv double {a}, {b}\n"      
@@ -127,7 +128,11 @@ class LLVMGenerator:
           title = f"@str.{self.tmp_header}"
           self.tmp_header += 1
           self.header_text += f"{title} = constant [{len(str(value)) - 1} x i8] c{val}\n"    
-          self.main_text += f"store i8* getelementptr inbounds ([{len(str(value)) - 1} x i8], [{len(str(value)) - 1} x i8]* {title}, i32 0, i32 0), i8** %{name}\n"
+          # self.main_text += f"store i8* getelementptr inbounds ([{len(str(value)) - 1} x i8], [{len(str(value)) - 1} x i8]* {title}, i32 0, i32 0), i8** %{name}\n"
+          self.main_text += f"%{self.tmp} = load i8*, i8** %{name}"
+          self.tmp += 1
+          self.main_text += f"%{self.tmp} = call i8* @strcpy(i8* %{self.tmp - 1}, i8* getelementptr inbounds ([{len(str(value)) - 1} x i8], [{len(str(value)) - 1} x i8]* {title}, i32 0, i32 0))"
+          self.tmp += 1
           return
         elif (type(value) == str and value[0] == "%"):
           self.main_text += f"store {self.variables[name]} {value}, {self.variables[name]}* %{name}\n"
@@ -184,5 +189,7 @@ class LLVMGenerator:
       text += "ret i32 0 }\n"
       text += "; Function Attrs: nounwind\n"
       text += "declare noalias i8* @malloc(i64) #1\n"
+      text += "; Function Attrs: nounwind\n"
+      text += "declare i8* @strcpy(i8*, i8*) #1\n"
       return text
    
