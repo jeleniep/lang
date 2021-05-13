@@ -9,10 +9,7 @@ block: ( stat NEWLINE )*
 stat: WRITE '(' paramdefs ')'			#write
 	| ID '=' (expr|value)			#assign
 	| READ '(' paramdefs ')'   			#read 
-	| function_declare  #declareFunction
-	| declare  #declareVariable
-	| function_call #callFunction
-	| if_stmt #ifStmt
+	| declare  #declareVariable 
 ;
 
 declare: var_type ID 
@@ -21,31 +18,13 @@ declare: var_type ID
 var_type: INT | DOUBLE | STRING
 ;
 
-function_declare: var_type ID '(' function_paramdefs ')' NEWLINE block END
-;
-
-function_call: ID '(' paramdefs ')'
-;
-
-
-
 
 
 expr:	value
-	|	function_call
 	|   expr OPERATOR_STRONG expr
 	|   expr OPERATOR_WEAK expr
     |	'(' expr ')'
 	;
-
-if_stmt: 'if' '('expr COMPARATOR expr')' NEWLINE block (END | else_stmt)
-;
-
-else_stmt: 'else' NEWLINE block END
-;
-
-COMPARATOR: '<'| '==' | '>' | '<=' | '>='
-;
 
 OPERATOR_STRONG: DIVIDE
 	| MULT
@@ -77,12 +56,9 @@ numeric_value: INT_VALUE
 	   | DOUBLE_VALUE
 ;
 
-END: 'end' 
-;
-
 WRITE:	'write' 
-;
 
+;
 READ:	'read' 
 ;
 
@@ -98,9 +74,6 @@ COMMA: ','
 ;
 
 paramdefs:  (value COMMA)* value      
-;
-
-function_paramdefs:  (declare COMMA)* declare   
 ;
 
 STRING: 'string'
@@ -122,7 +95,6 @@ DOUBLE_VALUE:   '0'..'9'+'.''0'..'9'+
 
 NEWLINE:	[\r\n]+ 
 ;
-
 
 WS:   (' '|'\t')+ -> skip
 ;

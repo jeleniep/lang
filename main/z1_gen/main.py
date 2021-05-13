@@ -11,8 +11,7 @@ def main(argv):
     stream = CommonTokenStream(lexer)
     parser = JeleniepParser(stream)
     tree = parser.prog()
-    # printer = JeleniepListener(argv[1])
-    printer = JeleniepListener()
+    printer = JeleniepListener(argv[1])
     walker = ParseTreeWalker()
     walker.walk(printer, tree)
  

@@ -1,16 +1,14 @@
-float z
-float s
-float a
+int asd(int kl, float s) 
+    float a
+    a = 5 
+end
 
-string asd
-asd = "ASd"
-write(asd)
-read(asd)
-write(asd)
-s = 92.0
-write(s)
-float q
-read(q)
-read(s)
-z = 1 + q / s
-write(z)
+int x
+write(x)
+x = asd(x)
+asd(x)
+
+if (2 < 3)
+    write(x)
+
+end
