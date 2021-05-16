@@ -13,6 +13,7 @@ stat: WRITE '(' paramdefs ')'			#write
 	| declare  #declareVariable
 	| function_call #callFunction
 	| if_stmt #ifStmt
+	| for_stmt #forStmt
 ;
 
 declare: var_type ID 
@@ -39,6 +40,9 @@ expr:	value
 	;
 
 if_stmt: 'if' '('expr COMPARATOR expr')' NEWLINE block (END | else_stmt)
+;
+
+for_stmt: 'for' '('ID COMMA value COMMA value ')' NEWLINE block (END)
 ;
 
 else_stmt: 'else' NEWLINE block END

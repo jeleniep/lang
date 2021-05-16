@@ -3,10 +3,11 @@ source_filename = "block.c"
 target datalayout = "e-m:e-i64:64-f80:128-n8:16:32:64-S128"
 target triple = "x86_64-pc-linux-gnu"
 
-@.str = private unnamed_addr constant [3 x i8] c"%d\00", align 1
+@.str = private unnamed_addr constant [6 x i8] c"%d %f\00", align 1
+@.str.1 = private unnamed_addr constant [3 x i8] c"%d\00", align 1
 
 ; Function Attrs: noinline nounwind optnone uwtable
-define float @f1(i32, i32, float) #0 {
+define i32 @f1(i32, i32, float) #0 {
   %4 = alloca i32, align 4
   %5 = alloca i32, align 4
   %6 = alloca float, align 4
@@ -31,7 +32,6 @@ define float @f1(i32, i32, float) #0 {
   %16 = load i32, i32* %5, align 4
   %17 = sub nsw i32 1, %16
   store i32 %17, i32* %7, align 4
-  store i32 %17, i32* %7, align 4
   br label %18
 
 ; <label>:18:                                     ; preds = %15, %14
@@ -39,8 +39,7 @@ define float @f1(i32, i32, float) #0 {
   %20 = sub nsw i32 12, %19
   store i32 %20, i32* %7, align 4
   %21 = load i32, i32* %7, align 4
-  %22 = sitofp i32 %21 to float
-  ret float %22
+  ret i32 %21
 }
 
 ; Function Attrs: noinline nounwind optnone uwtable
@@ -48,31 +47,42 @@ define i32 @main() #0 {
   %1 = alloca i32, align 4
   %2 = alloca i32, align 4
   %3 = alloca i32, align 4
+  %4 = alloca float, align 4
+  %5 = alloca i32, align 4
   store i32 0, i32* %1, align 4
   store i32 1, i32* %2, align 4
-  %4 = load i32, i32* %2, align 4
-  %5 = icmp slt i32 %4, 2
-  br i1 %5, label %6, label %7
+  store i32 0, i32* %3, align 4
+  store i32 0, i32* %3, align 4
+  br label %6
 
-; <label>:6:                                      ; preds = %0
-  store i32 2, i32* %2, align 4
-  br label %10
-
-; <label>:7:                                      ; preds = %0
+; <label>:6:                                      ; preds = %15, %0
+  %7 = load i32, i32* %3, align 4
   %8 = load i32, i32* %2, align 4
-  %9 = sub nsw i32 1, %8
-  store i32 %9, i32* %2, align 4
-  br label %10
+  %9 = icmp slt i32 %7, %8
+  br i1 %9, label %10, label %18
 
-; <label>:10:                                     ; preds = %7, %6
+; <label>:10:                                     ; preds = %6
+  store float 1.230000e+02, float* %4, align 4
   %11 = load i32, i32* %2, align 4
-  %12 = call float @f1(i32 1, i32 %11, float 3.000000e+00)
-  %13 = fptosi float %12 to i32
-  store i32 %13, i32* %3, align 4
-  %14 = load i32, i32* %3, align 4
-  %15 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str, i32 0, i32 0), i32 %14)
-  %16 = load i32, i32* %1, align 4
-  ret i32 %16
+  %12 = load float, float* %4, align 4
+  %13 = fpext float %12 to double
+  %14 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @.str, i32 0, i32 0), i32 %11, double %13)
+  br label %15
+
+; <label>:15:                                     ; preds = %10
+  %16 = load i32, i32* %3, align 4
+  %17 = add nsw i32 %16, 1
+  store i32 %17, i32* %3, align 4
+  br label %6
+
+; <label>:18:                                     ; preds = %6
+  %19 = load i32, i32* %2, align 4
+  %20 = call i32 @f1(i32 1, i32 %19, float 3.000000e+00)
+  store i32 %20, i32* %5, align 4
+  %21 = load i32, i32* %5, align 4
+  %22 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str.1, i32 0, i32 0), i32 %21)
+  %23 = load i32, i32* %1, align 4
+  ret i32 %23
 }
 
 declare i32 @printf(i8*, ...) #1

@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-float f1(int v1, int v2, float f1) {
+int f1(int v1, int v2, float f1) {
   int s = v1 + (int)f1;
   if (s < 2) {
     s = 2;
@@ -32,11 +32,16 @@ int main()
   // printf("%s", w);
   // scanf("%s", w);
   int w = 1;
-    if (w < 2) {
-    w = 2;
-  } 
-  else {    
-    w =  1 - w ;
+  //   if (w < 2) {
+  //   w = 2;
+  // } 
+  // else {    
+  //   w =  1 - w ;
+  // }
+  int i= 0;
+  for (i = 0; i < w; ++i) {
+    float s = 123;
+    printf("%d %f", w, s);
   }
   int s = f1(1,w, 3);
   printf("%d", s);

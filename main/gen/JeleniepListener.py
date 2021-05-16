@@ -4,9 +4,19 @@ if __name__ is not None and "." in __name__:
     from .JeleniepParser import JeleniepParser
 else:
     from JeleniepParser import JeleniepParser
+from LLVMGenerator import LLVMGenerator
+from FunctionLLVMGenerator import FunctionLLVMGenerator
 
 # This class defines a complete listener for a parse tree produced by JeleniepParser.
 class JeleniepListener(ParseTreeListener):
+
+    def __init__(self, filename):
+        self.generator = LLVMGenerator()
+        self.function_generator = FunctionLLVMGenerator(self.generator)
+        self.filename = filename
+        self.str = None
+        self.function = None
+        self.function_param_defs = False
 
     # Enter a parse tree produced by JeleniepParser#prog.
     def enterProg(self, ctx:JeleniepParser.ProgContext):
@@ -14,6 +24,10 @@ class JeleniepListener(ParseTreeListener):
 
     # Exit a parse tree produced by JeleniepParser#prog.
     def exitProg(self, ctx:JeleniepParser.ProgContext):
+        f = open(f"{self.filename.split('.')[0]}.jeleniep", "w")
+        f.write(self.generator.generate())
+        f.close()
+        print(self.generator.generate())
         pass
 
 
@@ -91,6 +105,13 @@ class JeleniepListener(ParseTreeListener):
 
     # Enter a parse tree produced by JeleniepParser#declare.
     def enterDeclare(self, ctx:JeleniepParser.DeclareContext):
+        var_type = str(
+            ctx.var_type().INT() or  
+            ctx.var_type().DOUBLE() or
+            ctx.var_type().STRING()
+        )           
+        print("enterDeclare", ctx.ID(), var_type)
+        self.function_generator.add_function_param(var_type, ctx.ID())
         pass
 
     # Exit a parse tree produced by JeleniepParser#declare.
@@ -109,11 +130,19 @@ class JeleniepListener(ParseTreeListener):
 
     # Enter a parse tree produced by JeleniepParser#function_declare.
     def enterFunction_declare(self, ctx:JeleniepParser.Function_declareContext):
-        print("enterFunction_declare")
+        var_type = str(
+            ctx.var_type().INT() or  
+            ctx.var_type().DOUBLE() or
+            ctx.var_type().STRING()
+        )           
+        self.function_generator.declare_function(str(ctx.ID()), var_type)
+        print("enterFunction_declare", ctx.ID(), var_type)
+
         pass
 
     # Exit a parse tree produced by JeleniepParser#function_declare.
     def exitFunction_declare(self, ctx:JeleniepParser.Function_declareContext):
+        self.function_generator.end_declare_function()
         print("exitFunction_declare")
         pass
 
@@ -121,6 +150,8 @@ class JeleniepListener(ParseTreeListener):
     # Enter a parse tree produced by JeleniepParser#function_call.
     def enterFunction_call(self, ctx:JeleniepParser.Function_callContext):
         print("enterFunction_call")
+        self.function_generator.call_function(str(ctx.ID()), ctx.paramdefs())
+
         pass
 
     # Exit a parse tree produced by JeleniepParser#function_call.
@@ -187,12 +218,34 @@ class JeleniepListener(ParseTreeListener):
 
     # Enter a parse tree produced by JeleniepParser#function_paramdefs.
     def enterFunction_paramdefs(self, ctx:JeleniepParser.Function_paramdefsContext):
+        print("enterFunction_paramdefs")
+        self.function_param_defs = True
         pass
 
     # Exit a parse tree produced by JeleniepParser#function_paramdefs.
     def exitFunction_paramdefs(self, ctx:JeleniepParser.Function_paramdefsContext):
+        print("exitFunction_paramdefs")
+        self.function_generator.define_function_params()
+        self.function_param_defs = False
         pass
 
 
+    # Enter a parse tree produced by JeleniepParser#forStmt.
+    def enterForStmt(self, ctx:JeleniepParser.ForStmtContext):
+        pass
+
+    # Exit a parse tree produced by JeleniepParser#forStmt.
+    def exitForStmt(self, ctx:JeleniepParser.ForStmtContext):
+        pass
+
+    # Enter a parse tree produced by JeleniepParser#for_stmt.
+    def enterFor_stmt(self, ctx:JeleniepParser.For_stmtContext):
+        print("enterFor_stmt")
+        pass
+
+    # Exit a parse tree produced by JeleniepParser#for_stmt.
+    def exitFor_stmt(self, ctx:JeleniepParser.For_stmtContext):
+        print("exitFor_stmt")
+        pass
 
 del JeleniepParser

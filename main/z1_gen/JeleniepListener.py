@@ -15,7 +15,6 @@ class JeleniepListener(ParseTreeListener):
     def __init__(self, filename):
         self.generator = LLVMGenerator()
         self.filename = filename
-        self.a = []
         self.str = None
 
     # Enter a parse tree produced by JeleniepParser#prog.
