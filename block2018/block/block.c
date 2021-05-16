@@ -9,6 +9,7 @@ int f1(int v1, int v2, float f1) {
   } 
   else {    
     s =  1 - v2;
+    return v1;
   }
   s = 12 - v1;
 

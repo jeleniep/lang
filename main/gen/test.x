@@ -1,18 +1,22 @@
-int asd(int kl, float s) 
-    float a
-    a = 5 
+float asd(float kl, float s) 
+    float z
+    z = kl + s    
+    return z
 end
 
-int x
+float qwe(float kl, float s) 
+    float z
+    z = kl - s    
+    return z
+end
+
+float x
+float q
+q = 2.2
+x = 21.0 - q
+x = asd(x, 2.0)
 write(x)
-x = asd(x)
-asd(x, 2)
-
-if (2 < 3)
-    write(x)
-int i
-for (i , 2 , 3)
-    write(i)
-end
-
+x = 21.0 - q
+x = qwe(x, 2.0)
+write(x)
 end

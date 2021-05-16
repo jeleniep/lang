@@ -14,6 +14,7 @@ stat: WRITE '(' paramdefs ')'			#write
 	| function_call #callFunction
 	| if_stmt #ifStmt
 	| for_stmt #forStmt
+	| 'return' expr #returnExpr
 ;
 
 declare: var_type ID 

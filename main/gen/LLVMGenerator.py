@@ -24,11 +24,11 @@ class LLVMGenerator:
     def __init__(self):
         self.variables = {}
         self.variables[self.var_range] = {
-          "base": {}
         }
         self.functions = {}
 
     def load_values(self, val_a, val_b):
+      print(val_a, GeneratorHelpers.checkType(val_a), "debug")
       var_type_a = GeneratorHelpers.checkType(val_a)
       var_type_b = GeneratorHelpers.checkType(val_b)
       a = val_a
@@ -41,7 +41,8 @@ class LLVMGenerator:
         var_type_a = var_type
 
       if (var_type_b == 'var'):
-        var_type = GeneratorHelpers.find_variable(val_a, self.variables, self.var_range)
+        print(self.variables)
+        var_type = GeneratorHelpers.find_variable(val_b, self.variables, self.var_range)
         self.llvm_text[self.context] += f"%{self.counter[self.context]} = load {var_type}, {var_type}* %{val_b}\n"
         b = f"%{self.counter[self.context]}"
         self.counter[self.context] += 1
@@ -116,7 +117,7 @@ class LLVMGenerator:
           self.counter[self.context] += 1
         else:
           self.llvm_text[self.context] += f"%{name} = alloca {GeneratorHelpers.declare_types[var_type_str]}\n"
-        self.variables[self.var_range][name] = GeneratorHelpers.declare_types[var_type_str]
+          self.variables[self.var_range][name] = GeneratorHelpers.declare_types[var_type_str]
       else:
           raise Exception(f"ERROR: Redeclaration of variable {name}")
 

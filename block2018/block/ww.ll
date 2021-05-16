@@ -10,36 +10,44 @@ target triple = "x86_64-pc-linux-gnu"
 define i32 @f1(i32, i32, float) #0 {
   %4 = alloca i32, align 4
   %5 = alloca i32, align 4
-  %6 = alloca float, align 4
-  %7 = alloca i32, align 4
-  store i32 %0, i32* %4, align 4
-  store i32 %1, i32* %5, align 4
-  store float %2, float* %6, align 4
-  %8 = load i32, i32* %4, align 4
-  %9 = load float, float* %6, align 4
-  %10 = fptosi float %9 to i32
-  %11 = add nsw i32 %8, %10
-  store i32 %11, i32* %7, align 4
-  %12 = load i32, i32* %7, align 4
-  %13 = icmp slt i32 %12, 2
-  br i1 %13, label %14, label %15
-
-; <label>:14:                                     ; preds = %3
-  store i32 2, i32* %7, align 4
-  br label %18
+  %6 = alloca i32, align 4
+  %7 = alloca float, align 4
+  %8 = alloca i32, align 4
+  store i32 %0, i32* %5, align 4
+  store i32 %1, i32* %6, align 4
+  store float %2, float* %7, align 4
+  %9 = load i32, i32* %5, align 4
+  %10 = load float, float* %7, align 4
+  %11 = fptosi float %10 to i32
+  %12 = add nsw i32 %9, %11
+  store i32 %12, i32* %8, align 4
+  %13 = load i32, i32* %8, align 4
+  %14 = icmp slt i32 %13, 2
+  br i1 %14, label %15, label %16
 
 ; <label>:15:                                     ; preds = %3
-  %16 = load i32, i32* %5, align 4
-  %17 = sub nsw i32 1, %16
-  store i32 %17, i32* %7, align 4
-  br label %18
+  store i32 2, i32* %8, align 4
+  br label %20
 
-; <label>:18:                                     ; preds = %15, %14
-  %19 = load i32, i32* %4, align 4
-  %20 = sub nsw i32 12, %19
-  store i32 %20, i32* %7, align 4
-  %21 = load i32, i32* %7, align 4
-  ret i32 %21
+; <label>:16:                                     ; preds = %3
+  %17 = load i32, i32* %6, align 4
+  %18 = sub nsw i32 1, %17
+  store i32 %18, i32* %8, align 4
+  %19 = load i32, i32* %5, align 4
+  store i32 %19, i32* %4, align 4
+  br label %24
+
+; <label>:20:                                     ; preds = %15
+  %21 = load i32, i32* %5, align 4
+  %22 = sub nsw i32 12, %21
+  store i32 %22, i32* %8, align 4
+  %23 = load i32, i32* %8, align 4
+  store i32 %23, i32* %4, align 4
+  br label %24
+
+; <label>:24:                                     ; preds = %20, %16
+  %25 = load i32, i32* %4, align 4
+  ret i32 %25
 }
 
 ; Function Attrs: noinline nounwind optnone uwtable

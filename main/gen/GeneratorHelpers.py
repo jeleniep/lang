@@ -20,6 +20,8 @@ class GeneratorHelpers:
    
     @staticmethod
     def find_variable(var_name, variables, var_range):
+        print(var_name)
+        print(variables[var_range][var_name], var_name)
         if var_name in variables[var_range]:
           var_type = variables[var_range][var_name]
           return var_type

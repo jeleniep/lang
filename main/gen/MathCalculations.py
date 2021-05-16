@@ -25,7 +25,7 @@ class MathCalculations:
         self.containVariable = False
 
     def build(self, arr, generator: LLVMGenerator):
-        print(arr)
+        #print(arr)
         op = ['+', '-', '*', '/']
         head = None
         current = head 
@@ -144,7 +144,7 @@ class MathCalculations:
         lastVisited = None
         operator = None
         while(found):
-            head.display()
+            #head.display()
             # print("\n", lastVisited, current.left, (current.left == lastVisited), current.left and not (current.left == lastVisited), "\n")
             if (current.left):
                 # print("left", current.left.operator, current.left.value)

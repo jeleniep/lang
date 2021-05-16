@@ -12,8 +12,12 @@ class FunctionLLVMGenerator:
         self.returned_type = None
 
     def declare_function(self, name, returned_type):
+        if (self.generator.context == "function"):
+          raise Exception(f"ERROR: Cannot declare function {name} into function {self.generator.var_range}")
+            
         self.generator.context = "function"
         self.generator.var_range = name
+        self.generator.variables[name] = {}
         self.returned_type = GeneratorHelpers.declare_types[returned_type]
         self.generator.functions[name] = {
             "returned_type": GeneratorHelpers.declare_types[returned_type],
@@ -29,15 +33,16 @@ class FunctionLLVMGenerator:
         params_names_string = ""
         for param in self.params:
             if (params_types_string == ""):
-                params_types_string += param['type']
+                params_types_string += param['returned_type']
             else:
-                params_types_string += f", {param['type']}"
+                params_types_string += f", {param['returned_type']}"
             self.generator.functions[self.generator.var_range]["params"].append({
-                "type": param["type"],
+                "returned_type": param["returned_type"],
                 "name": param["name"]
             })
-            params_names_string += f"%{param['name']} = alloca {param['type']}\n" 
-            params_names_string += f"store {param['type']} %{self.generator.counter['function']}, {param['type']}* %{param['name']}\n"
+            self.generator.variables[self.generator.var_range][param["name"]] = param["returned_type"]
+            params_names_string += f"%{param['name']} = alloca {param['returned_type']}\n" 
+            params_names_string += f"store {param['returned_type']} %{self.generator.counter['function']}, {param['returned_type']}* %{param['name']}\n"
             self.generator.counter["function"] += 1
         params_names_string += f"%retVal = alloca {self.returned_type}\n" 
         self.generator.llvm_text[self.generator.context] += f"({params_types_string}) #0 {{  \n" + params_names_string
@@ -47,20 +52,41 @@ class FunctionLLVMGenerator:
 
     def add_function_param(self, var_type, name):
         self.params.append({
-                "type": GeneratorHelpers.declare_types[var_type],
+                "returned_type": GeneratorHelpers.declare_types[var_type],
                 "name": name
             })
 
+    def return_expression(self, value):
+        val = ""
+        if (value.ID() is not None):
+            val = f"%{str(value.ID())}"
+        else:
+            val = str(
+                value.INT() or  
+                value.DOUBLE() or
+                value.STRING()
+            )
+        self.generator.llvm_text[self.generator.context] += f"%{self.generator.counter[self.generator.context]} = load {self.returned_type}, {self.returned_type}* {val}\n"
+        self.generator.llvm_text[self.generator.context] += f"store {self.returned_type} %{self.generator.counter[self.generator.context]}, {self.returned_type}* %retVal\n"
+        self.generator.llvm_text[self.generator.context] += f"br label %return_placeholder \n"
+        self.generator.counter[self.generator.context] += 1
 
-    def call_function(self, name, args):
-        print(self.generator.functions)
+       
+
+    def call_function(self, name, args, assign = False):
+        print(self.generator.var_range)
         returned_type = self.generator.functions[name]["returned_type"]
         args_string = ""
         for i, param in enumerate(self.generator.functions[name]["params"]):
-            value = args.value(i).ID() 
+            print(i, "Grzegorz")
+            value = args.value(i).ID() if hasattr(args.value(i), 'ID') else None
             var_type = None
-            if (value):
+            if (value is not None):
+                value = str(value)
                 var_type = GeneratorHelpers.find_variable(value, self.generator.variables, self.generator.var_range)
+                self.generator.llvm_text[self.generator.context] += f"%{self.generator.counter[self.generator.context]} = load {var_type}, {var_type}* %{value}\n"
+                value = f"%{self.generator.counter[self.generator.context]}"
+                self.generator.counter[self.generator.context] += 1
                 if (var_type != param['returned_type']):
                     raise Exception(f"ERROR: Variable {value} should be a {param['returned_type']}.")
             else: 
@@ -70,14 +96,19 @@ class FunctionLLVMGenerator:
                 args.value(i).STRING_VALUE()
                 )
             if (args_string == ""):
+                print("1e")
                 args_string += f"{param['returned_type']} {value}"
             else:
+                print("2e")
                 args_string += f", {param['returned_type']} {value}"
-
-        f"call {returned_type} @{name}({args_string} i32 1, i32 %19, float 3.000000e+00)"
-        pass
+        self.generator.llvm_text[self.generator.context] += f"%{self.generator.counter[self.generator.context]} = call {returned_type} @{name}({args_string})\n"
+        self.generator.counter[self.generator.context] += 1 
+        return f"%{self.generator.counter[self.generator.context] - 1}"
 
     def end_declare_function(self):
+        self.generator.llvm_text[self.generator.context] += f";<label>:{self.generator.counter[self.generator.context]}:\n"
+        self.generator.llvm_text[self.generator.context] = self.generator.llvm_text[self.generator.context].replace("return_placeholder", str(self.generator.counter[self.generator.context]))
+        self.generator.counter[self.generator.context] += 1 
         self.generator.llvm_text[self.generator.context] += f"%{self.generator.counter[self.generator.context]} = load {self.returned_type}, {self.returned_type}* %retVal\n"
         self.generator.llvm_text[self.generator.context] += f"ret {self.returned_type} %{self.generator.counter[self.generator.context]} \n"
         self.generator.llvm_text[self.generator.context] += f"}} \n"
