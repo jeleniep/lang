@@ -102,8 +102,10 @@ class FunctionLLVMGenerator:
                 print("2e")
                 args_string += f", {param['returned_type']} {value}"
         self.generator.llvm_text[self.generator.context] += f"%{self.generator.counter[self.generator.context]} = call {returned_type} @{name}({args_string})\n"
-        self.generator.counter[self.generator.context] += 1 
-        return f"%{self.generator.counter[self.generator.context] - 1}"
+        self.generator.counter[self.generator.context] += 1
+        returned_id = f"%{self.generator.counter[self.generator.context] - 1}"
+        self.generator.returned_types[returned_id] = returned_type
+        return returned_id
 
     def end_declare_function(self):
         self.generator.llvm_text[self.generator.context] += f";<label>:{self.generator.counter[self.generator.context]}:\n"

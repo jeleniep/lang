@@ -59,11 +59,11 @@ class JeleniepListener(ParseTreeListener):
     # Exit a parse tree produced by JeleniepParser#assign.
     def exitAssign(self, ctx:JeleniepParser.AssignContext):
         print("exit Assign")
-        if (ctx.expr() and ctx.expr().function_call() and ctx.expr().function_call().ID() is not None):
-            last_id = self.function_calls[str(ctx.expr().function_call().ID())].pop()
-            print(last_id, "Grzegorz")
-            self.generator.assign(str(ctx.ID()), last_id)
-        elif (self.str):
+        # if (ctx.expr() and ctx.expr().function_call() and ctx.expr().function_call().ID() is not None):
+        #     last_id = self.function_calls[str(ctx.expr().function_call().ID())].pop()
+        #     print(last_id, "Grzegorz")
+        #     self.generator.assign(str(ctx.ID()), last_id)
+        if (self.str):
             self.generator.assign(str(ctx.ID()), self.str)
             self.str = None
         else:
@@ -185,8 +185,10 @@ class JeleniepListener(ParseTreeListener):
     # Enter a parse tree produced by JeleniepParser#expr.
     def enterExpr(self, ctx:JeleniepParser.ExprContext):
         if (not self.returnStmt):
-            print("enterExpr", ctx.OPERATOR_STRONG(), ctx.OPERATOR_WEAK(), ctx.expr())
-            if (ctx.OPERATOR_STRONG() or ctx.OPERATOR_WEAK()):
+            print("enterExpr", ctx.OPERATOR_STRONG(), ctx.OPERATOR_WEAK(), ctx.function_call())
+            if (ctx.function_call()):
+                self.calculation_list.append(str(ctx.function_call().ID()))
+            elif (ctx.OPERATOR_STRONG() or ctx.OPERATOR_WEAK()):
                 self.calculation_list.append(str(ctx.OPERATOR_STRONG() or ctx.OPERATOR_WEAK()))
             elif (ctx.value()):
                 if(ctx.value().STRING_VALUE()): 
@@ -202,6 +204,11 @@ class JeleniepListener(ParseTreeListener):
 
     # Exit a parse tree produced by JeleniepParser#expr.
     def exitExpr(self, ctx:JeleniepParser.ExprContext):
+        print("EXIT EXPR", self.calculation_list, self.function_calls)
+        for index, calc in enumerate(self.calculation_list):
+            if calc in self.function_calls:
+                print(self.function_calls[calc], "PO")
+                self.calculation_list[index] = self.function_calls[calc].pop()
         pass
 
 

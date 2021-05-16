@@ -26,6 +26,7 @@ class LLVMGenerator:
         self.variables[self.var_range] = {
         }
         self.functions = {}
+        self.returned_types = {}
 
     def load_values(self, val_a, val_b):
       print(val_a, GeneratorHelpers.checkType(val_a), "debug")
@@ -47,6 +48,14 @@ class LLVMGenerator:
         b = f"%{self.counter[self.context]}"
         self.counter[self.context] += 1
         var_type_b = var_type
+      
+      if (var_type_a == 'internal'):
+        if (a in self.returned_types):
+          var_type_a = self.returned_types[a]
+
+      if (var_type_b == 'internal'):
+        if (b in self.returned_types):
+          var_type_b = self.returned_types[b]
 
       return a, b, var_type_a, var_type_b
 
@@ -72,6 +81,7 @@ class LLVMGenerator:
 
     def minus(self, val_a, val_b):
       a, b, var_type_a, var_type_b = self.load_values(val_a, val_b)
+      print("var_type_a, var_type_b", var_type_a, var_type_b, a, b)
       if (var_type_a == 'double' or var_type_b == 'double'):
         a = a if (a[0] == '%') else str(float(a))
         b = b if (b[0] == '%') else str(float(b))
@@ -140,7 +150,7 @@ class LLVMGenerator:
         self.llvm_text[self.context] += f"store {self.variables[self.var_range][name]} {value}, {self.variables[self.var_range][name]}* %{name}\n"
       elif (self.variables[self.var_range][name] == 'i32'):
         value = int(value)
-      self.llvm_text[self.context] += f"store {self.variables[self.var_range][name]} {value}, {self.variables[self.var_range][name]}* %{name}\n"
+        self.llvm_text[self.context] += f"store {self.variables[self.var_range][name]} {value}, {self.variables[self.var_range][name]}* %{name}\n"
 
 
     def printf(self, id):
