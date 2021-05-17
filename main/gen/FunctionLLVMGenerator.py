@@ -13,16 +13,20 @@ class FunctionLLVMGenerator:
 
     def declare_function(self, name, returned_type):
         if (self.generator.context == "function"):
-          raise Exception(f"ERROR: Cannot declare function {name} into function {self.generator.var_range}")
-            
-        self.generator.context = "function"
-        self.generator.var_range = name
-        self.generator.variables[name] = {}
-        self.returned_type = GeneratorHelpers.declare_types[returned_type]
+          raise Exception(f"ERROR: Cannot declare function {name} in function {self.generator.var_range}")
+    
+        if (name in self.generator.functions):
+          raise Exception(f"ERROR: Redeclaration of function {name}")
+
         self.generator.functions[name] = {
             "returned_type": GeneratorHelpers.declare_types[returned_type],
             "params": []
         }
+        self.generator.context = "function"
+        self.generator.var_range = name
+        self.generator.variables[name] = {}
+        self.returned_type = GeneratorHelpers.declare_types[returned_type]
+
         self.generator.llvm_text[self.generator.context] += (
             f"define {GeneratorHelpers.declare_types[returned_type]} @{name}"
         ) 
@@ -60,25 +64,30 @@ class FunctionLLVMGenerator:
         val = ""
         if (value.ID() is not None):
             val = f"%{str(value.ID())}"
+            self.generator.llvm_text[self.generator.context] += f"%{self.generator.counter[self.generator.context]} = load {self.returned_type}, {self.returned_type}* {val}\n"
+            self.generator.llvm_text[self.generator.context] += f"store {self.returned_type} %{self.generator.counter[self.generator.context]}, {self.returned_type}* %retVal\n"
+            self.generator.counter[self.generator.context] += 1
         else:
             val = str(
-                value.INT() or  
-                value.DOUBLE() or
-                value.STRING()
+                value.INT_VALUE() or  
+                value.DOUBLE_VALUE() or
+                value.STRING_VALUE()
             )
-        self.generator.llvm_text[self.generator.context] += f"%{self.generator.counter[self.generator.context]} = load {self.returned_type}, {self.returned_type}* {val}\n"
-        self.generator.llvm_text[self.generator.context] += f"store {self.returned_type} %{self.generator.counter[self.generator.context]}, {self.returned_type}* %retVal\n"
+            self.generator.llvm_text[self.generator.context] += f"store {self.returned_type} {val}, {self.returned_type}* %retVal\n"
+
         self.generator.llvm_text[self.generator.context] += f"br label %return_placeholder \n"
-        self.generator.counter[self.generator.context] += 1
 
        
 
     def call_function(self, name, args, assign = False):
         print(self.generator.var_range)
+        if (name not in self.generator.functions):
+          raise Exception(f"ERROR: Function {name} does not exist.")
+
         returned_type = self.generator.functions[name]["returned_type"]
         args_string = ""
+            
         for i, param in enumerate(self.generator.functions[name]["params"]):
-            print(i, "Grzegorz")
             value = args.value(i).ID() if hasattr(args.value(i), 'ID') else None
             var_type = None
             if (value is not None):
@@ -108,9 +117,15 @@ class FunctionLLVMGenerator:
         return returned_id
 
     def end_declare_function(self):
-        self.generator.llvm_text[self.generator.context] += f";<label>:{self.generator.counter[self.generator.context]}:\n"
-        self.generator.llvm_text[self.generator.context] = self.generator.llvm_text[self.generator.context].replace("return_placeholder", str(self.generator.counter[self.generator.context]))
-        self.generator.counter[self.generator.context] += 1 
+        lines = self.generator.llvm_text[self.generator.context].split("\n")
+        print("test2", lines[len(lines) - 2],  "spacja", f"; <label>:return_placeholder ")
+        if (f"; <label>:{self.generator.counter[self.generator.context] - 1}" not in lines[len(lines) - 2]):
+            self.generator.llvm_text[self.generator.context] += f"; <label>:{self.generator.counter[self.generator.context]}:\n"
+            self.generator.llvm_text[self.generator.context] = self.generator.llvm_text[self.generator.context].replace("return_placeholder", str(self.generator.counter[self.generator.context]))
+            self.generator.counter[self.generator.context] += 1 
+        else:
+            self.generator.llvm_text[self.generator.context] = self.generator.llvm_text[self.generator.context].replace("return_placeholder", str(self.generator.counter[self.generator.context] - 1))
+            
         self.generator.llvm_text[self.generator.context] += f"%{self.generator.counter[self.generator.context]} = load {self.returned_type}, {self.returned_type}* %retVal\n"
         self.generator.llvm_text[self.generator.context] += f"ret {self.returned_type} %{self.generator.counter[self.generator.context]} \n"
         self.generator.llvm_text[self.generator.context] += f"}} \n"

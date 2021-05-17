@@ -17,10 +17,28 @@ class GeneratorHelpers:
         "float": "double",
         "string": "i8*"
     }
+
+    comparators_int = {
+        '<': "slt",
+        '==' : "eq" ,
+        '>' :  "sgt",
+        '<=' : "sle",
+        '>=' : "sge",
+        '!=': "ne"
+    }
+
+    comparators_float = {
+        '<': "olt",
+        '==' : "oeq" ,
+        '>' :  "ogt",
+        '<=' : "ole",
+        '>=' : "oge",
+        '!=': "one"
+    }
    
     @staticmethod
     def find_variable(var_name, variables, var_range):
-        print(var_name)
+        print(var_name, variables)
         print(variables[var_range][var_name], var_name)
         if var_name in variables[var_range]:
           var_type = variables[var_range][var_name]
@@ -45,3 +63,25 @@ class GeneratorHelpers:
                     return 'internal'
                 return 'var'
    
+    @staticmethod
+    def parse_cmp(cmp, val_type, values, counter, context):
+        returned_str = ""
+        final_values = [values[0], values[1]]
+        if(values[0][0] == "%"):
+            returned_str += f"%{counter[context]} = load {val_type}, {val_type}* {values[0]} \n"
+            final_values[0] = f"%{counter[context]}"
+            counter[context] += 1
+        if(values[1][0] == "%"):
+            returned_str += f"%{counter[context]} = load {val_type}, {val_type}* {values[1]} \n"
+            final_values[1] = f"%{counter[context]}"
+            counter[context] += 1
+        if (val_type == "i32"):
+            comparator = GeneratorHelpers.comparators_int[str(cmp.COMPARATOR())]
+            returned_str += f"%{counter[context]} = icmp {comparator} i32 {final_values[0]}, {final_values[1]} \n"
+        else:
+            comparator = GeneratorHelpers.comparators_float[str(cmp.COMPARATOR())]
+
+            returned_str += f"%{counter[context]} = fcmp {comparator} double {final_values[0]}, {final_values[1]} \n"
+        
+        counter[context] += 1
+        return returned_str

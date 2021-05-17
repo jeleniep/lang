@@ -127,7 +127,7 @@ class LLVMGenerator:
           self.counter[self.context] += 1
         else:
           self.llvm_text[self.context] += f"%{name} = alloca {GeneratorHelpers.declare_types[var_type_str]}\n"
-          self.variables[self.var_range][name] = GeneratorHelpers.declare_types[var_type_str]
+        self.variables[self.var_range][name] = GeneratorHelpers.declare_types[var_type_str]
       else:
           raise Exception(f"ERROR: Redeclaration of variable {name}")
 
@@ -135,6 +135,7 @@ class LLVMGenerator:
     def assign(self, id, value):
       name = str(id)
       var_type = GeneratorHelpers.find_variable(name, self.variables, self.var_range)
+      print("in assign", var_type, value, type(value))
       if (var_type == "i8*"):
         val = str(value)[:-1] + "\\00\""
         title = f"@str.{self.counter['header']}"
@@ -151,7 +152,8 @@ class LLVMGenerator:
       elif (self.variables[self.var_range][name] == 'i32'):
         value = int(value)
         self.llvm_text[self.context] += f"store {self.variables[self.var_range][name]} {value}, {self.variables[self.var_range][name]}* %{name}\n"
-
+      else:
+        self.llvm_text[self.context] += f"store {self.variables[self.var_range][name]} {value}, {self.variables[self.var_range][name]}* %{name}\n"
 
     def printf(self, id):
       name = str(id)
@@ -193,9 +195,9 @@ class LLVMGenerator:
       text += "@strsd = constant [4 x i8] c\"%lf\\00\"\n"
       text += self.llvm_text["header"] + "\n"
       text += self.llvm_text["function"] + "\n"
-      text += "define i32 @main() nounwind{\n"
+      # text += "define i32 @main() nounwind{\n"
       text += self.llvm_text["base"]
-      text += "ret i32 0 }\n"
+      # text += "ret i32 0 }\n"
       text += "; Function Attrs: nounwind\n"
       text += "declare noalias i8* @malloc(i64) #1\n"
       text += "; Function Attrs: nounwind\n"

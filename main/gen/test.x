@@ -10,18 +10,36 @@ float qwe(float kl, float s)
     return z
 end
 
-float x
-float q
-q = 2.2
-x = 21.0 - q
-x = asd(x, 2.0)
-write(x)
-x = 21.0 - q
-x = qwe(x, 2.0)
-q = qwe(1240.0, 1231.0)
-x = 12.0 - q
-q = (asd(5.0, 0.0) + asd(0.0, 2.0)) / qwe(12.0, 2.0) * 2.0
-q = 2.0
-write(x)
-write(q)
+float a(float s)
+    float w 
+    w = 2.0
+    return w
+end
+
+int asdw()
+    string s
+    s = "witam" 
+    write(s)
+    return 0
+end
+
+int main()
+    float x
+    float q
+    q = 2.2 - 0.0
+    write(q)
+    asdw()
+    q = (asd(5.0, 0.0) + asd(0.0, 2.0)) / qwe(12.0, 2.0) * 2.0 + a(2.0)
+    string asdq
+    if (a < 2)
+        asdq = "as"
+        write(asdq)
+    end
+    x = 17.0
+    while (i != 3)
+        write(x)
+        write(x)
+    end
+    write(q)
+    return 0
 end

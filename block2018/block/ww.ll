@@ -3,94 +3,43 @@ source_filename = "block.c"
 target datalayout = "e-m:e-i64:64-f80:128-n8:16:32:64-S128"
 target triple = "x86_64-pc-linux-gnu"
 
+@sas = global i32 1231, align 4
 @.str = private unnamed_addr constant [6 x i8] c"%d %f\00", align 1
-@.str.1 = private unnamed_addr constant [3 x i8] c"%d\00", align 1
-
-; Function Attrs: noinline nounwind optnone uwtable
-define i32 @f1(i32, i32, float) #0 {
-  %4 = alloca i32, align 4
-  %5 = alloca i32, align 4
-  %6 = alloca i32, align 4
-  %7 = alloca float, align 4
-  %8 = alloca i32, align 4
-  store i32 %0, i32* %5, align 4
-  store i32 %1, i32* %6, align 4
-  store float %2, float* %7, align 4
-  %9 = load i32, i32* %5, align 4
-  %10 = load float, float* %7, align 4
-  %11 = fptosi float %10 to i32
-  %12 = add nsw i32 %9, %11
-  store i32 %12, i32* %8, align 4
-  %13 = load i32, i32* %8, align 4
-  %14 = icmp slt i32 %13, 2
-  br i1 %14, label %15, label %16
-
-; <label>:15:                                     ; preds = %3
-  store i32 2, i32* %8, align 4
-  br label %20
-
-; <label>:16:                                     ; preds = %3
-  %17 = load i32, i32* %6, align 4
-  %18 = sub nsw i32 1, %17
-  store i32 %18, i32* %8, align 4
-  %19 = load i32, i32* %5, align 4
-  store i32 %19, i32* %4, align 4
-  br label %24
-
-; <label>:20:                                     ; preds = %15
-  %21 = load i32, i32* %5, align 4
-  %22 = sub nsw i32 12, %21
-  store i32 %22, i32* %8, align 4
-  %23 = load i32, i32* %8, align 4
-  store i32 %23, i32* %4, align 4
-  br label %24
-
-; <label>:24:                                     ; preds = %20, %16
-  %25 = load i32, i32* %4, align 4
-  ret i32 %25
-}
 
 ; Function Attrs: noinline nounwind optnone uwtable
 define i32 @main() #0 {
   %1 = alloca i32, align 4
   %2 = alloca i32, align 4
-  %3 = alloca i32, align 4
+  %3 = alloca double, align 8
   %4 = alloca float, align 4
-  %5 = alloca i32, align 4
   store i32 0, i32* %1, align 4
-  store i32 1, i32* %2, align 4
-  store i32 0, i32* %3, align 4
-  store i32 0, i32* %3, align 4
-  br label %6
+  %5 = load i32, i32* @sas, align 4
+  %6 = add nsw i32 1, %5
+  store i32 %6, i32* %2, align 4
+  store double 0.000000e+00, double* %3, align 8
+  br label %7
 
-; <label>:6:                                      ; preds = %15, %0
-  %7 = load i32, i32* %3, align 4
-  %8 = load i32, i32* %2, align 4
-  %9 = icmp slt i32 %7, %8
-  br i1 %9, label %10, label %18
+; <label>:7:                                      ; preds = %12, %0
+  %8 = load double, double* %3, align 8
+  %9 = load i32, i32* %2, align 4
+  %10 = sitofp i32 %9 to double
+  %11 = fcmp olt double %8, %10
+  br i1 %11, label %12, label %19
 
-; <label>:10:                                     ; preds = %6
+; <label>:12:                                     ; preds = %7
   store float 1.230000e+02, float* %4, align 4
-  %11 = load i32, i32* %2, align 4
-  %12 = load float, float* %4, align 4
-  %13 = fpext float %12 to double
-  %14 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @.str, i32 0, i32 0), i32 %11, double %13)
-  br label %15
+  %13 = load i32, i32* %2, align 4
+  %14 = load float, float* %4, align 4
+  %15 = fpext float %14 to double
+  %16 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @.str, i32 0, i32 0), i32 %13, double %15)
+  %17 = load double, double* %3, align 8
+  %18 = fadd double %17, 1.000000e+00
+  store double %18, double* %3, align 8
+  br label %7
 
-; <label>:15:                                     ; preds = %10
-  %16 = load i32, i32* %3, align 4
-  %17 = add nsw i32 %16, 1
-  store i32 %17, i32* %3, align 4
-  br label %6
-
-; <label>:18:                                     ; preds = %6
-  %19 = load i32, i32* %2, align 4
-  %20 = call i32 @f1(i32 1, i32 %19, float 3.000000e+00)
-  store i32 %20, i32* %5, align 4
-  %21 = load i32, i32* %5, align 4
-  %22 = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str.1, i32 0, i32 0), i32 %21)
-  %23 = load i32, i32* %1, align 4
-  ret i32 %23
+; <label>:19:                                     ; preds = %7
+  %20 = load i32, i32* %1, align 4
+  ret i32 %20
 }
 
 declare i32 @printf(i8*, ...) #1

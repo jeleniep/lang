@@ -12,60 +12,66 @@ else:
 def serializedATN():
     with StringIO() as buf:
         buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\35")
-        buf.write("\u00a0\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7")
+        buf.write("\u00ac\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7")
         buf.write("\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4\f\t\f\4\r\t\r\4\16")
-        buf.write("\t\16\4\17\t\17\4\20\t\20\3\2\3\2\3\3\3\3\3\3\7\3&\n\3")
-        buf.write("\f\3\16\3)\13\3\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\5")
-        buf.write("\4\64\n\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4")
-        buf.write("\3\4\5\4B\n\4\3\5\3\5\3\5\3\6\3\6\3\7\3\7\3\7\3\7\3\7")
-        buf.write("\3\7\3\7\3\7\3\7\3\b\3\b\3\b\3\b\3\b\3\t\3\t\3\t\3\t\3")
-        buf.write("\t\3\t\3\t\5\t^\n\t\3\t\3\t\3\t\3\t\3\t\3\t\7\tf\n\t\f")
-        buf.write("\t\16\ti\13\t\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n")
-        buf.write("\5\nu\n\n\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13")
-        buf.write("\3\13\3\13\3\13\3\f\3\f\3\f\3\f\3\f\3\r\3\r\3\16\3\16")
-        buf.write("\3\17\3\17\3\17\7\17\u008f\n\17\f\17\16\17\u0092\13\17")
-        buf.write("\3\17\3\17\3\20\3\20\3\20\7\20\u0099\n\20\f\20\16\20\u009c")
-        buf.write("\13\20\3\20\3\20\3\20\2\3\20\21\2\4\6\b\n\f\16\20\22\24")
-        buf.write("\26\30\32\34\36\2\5\4\2\24\25\27\27\3\2\30\33\3\2\32\33")
-        buf.write("\2\u00a1\2 \3\2\2\2\4\'\3\2\2\2\6A\3\2\2\2\bC\3\2\2\2")
-        buf.write("\nF\3\2\2\2\fH\3\2\2\2\16Q\3\2\2\2\20]\3\2\2\2\22j\3\2")
-        buf.write("\2\2\24v\3\2\2\2\26\u0082\3\2\2\2\30\u0087\3\2\2\2\32")
-        buf.write("\u0089\3\2\2\2\34\u0090\3\2\2\2\36\u009a\3\2\2\2 !\5\4")
-        buf.write("\3\2!\3\3\2\2\2\"#\5\6\4\2#$\7\34\2\2$&\3\2\2\2%\"\3\2")
-        buf.write("\2\2&)\3\2\2\2\'%\3\2\2\2\'(\3\2\2\2(\5\3\2\2\2)\'\3\2")
-        buf.write("\2\2*+\7\22\2\2+,\7\3\2\2,-\5\34\17\2-.\7\4\2\2.B\3\2")
-        buf.write("\2\2/\60\7\31\2\2\60\63\7\5\2\2\61\64\5\20\t\2\62\64\5")
-        buf.write("\30\r\2\63\61\3\2\2\2\63\62\3\2\2\2\64B\3\2\2\2\65\66")
-        buf.write("\7\23\2\2\66\67\7\3\2\2\678\5\34\17\289\7\4\2\29B\3\2")
-        buf.write("\2\2:B\5\f\7\2;B\5\b\5\2<B\5\16\b\2=B\5\22\n\2>B\5\24")
-        buf.write("\13\2?@\7\6\2\2@B\5\20\t\2A*\3\2\2\2A/\3\2\2\2A\65\3\2")
-        buf.write("\2\2A:\3\2\2\2A;\3\2\2\2A<\3\2\2\2A=\3\2\2\2A>\3\2\2\2")
-        buf.write("A?\3\2\2\2B\7\3\2\2\2CD\5\n\6\2DE\7\31\2\2E\t\3\2\2\2")
-        buf.write("FG\t\2\2\2G\13\3\2\2\2HI\5\n\6\2IJ\7\31\2\2JK\7\3\2\2")
-        buf.write("KL\5\36\20\2LM\7\4\2\2MN\7\34\2\2NO\5\4\3\2OP\7\21\2\2")
-        buf.write("P\r\3\2\2\2QR\7\31\2\2RS\7\3\2\2ST\5\34\17\2TU\7\4\2\2")
-        buf.write("U\17\3\2\2\2VW\b\t\1\2W^\5\30\r\2X^\5\16\b\2YZ\7\3\2\2")
-        buf.write("Z[\5\20\t\2[\\\7\4\2\2\\^\3\2\2\2]V\3\2\2\2]X\3\2\2\2")
-        buf.write("]Y\3\2\2\2^g\3\2\2\2_`\f\5\2\2`a\7\13\2\2af\5\20\t\6b")
-        buf.write("c\f\4\2\2cd\7\f\2\2df\5\20\t\5e_\3\2\2\2eb\3\2\2\2fi\3")
-        buf.write("\2\2\2ge\3\2\2\2gh\3\2\2\2h\21\3\2\2\2ig\3\2\2\2jk\7\7")
-        buf.write("\2\2kl\7\3\2\2lm\5\20\t\2mn\7\n\2\2no\5\20\t\2op\7\4\2")
-        buf.write("\2pq\7\34\2\2qt\5\4\3\2ru\7\21\2\2su\5\26\f\2tr\3\2\2")
-        buf.write("\2ts\3\2\2\2u\23\3\2\2\2vw\7\b\2\2wx\7\3\2\2xy\7\31\2")
-        buf.write("\2yz\7\26\2\2z{\5\30\r\2{|\7\26\2\2|}\5\30\r\2}~\7\4\2")
-        buf.write("\2~\177\7\34\2\2\177\u0080\5\4\3\2\u0080\u0081\7\21\2")
-        buf.write("\2\u0081\25\3\2\2\2\u0082\u0083\7\t\2\2\u0083\u0084\7")
-        buf.write("\34\2\2\u0084\u0085\5\4\3\2\u0085\u0086\7\21\2\2\u0086")
-        buf.write("\27\3\2\2\2\u0087\u0088\t\3\2\2\u0088\31\3\2\2\2\u0089")
-        buf.write("\u008a\t\4\2\2\u008a\33\3\2\2\2\u008b\u008c\5\30\r\2\u008c")
-        buf.write("\u008d\7\26\2\2\u008d\u008f\3\2\2\2\u008e\u008b\3\2\2")
-        buf.write("\2\u008f\u0092\3\2\2\2\u0090\u008e\3\2\2\2\u0090\u0091")
-        buf.write("\3\2\2\2\u0091\u0093\3\2\2\2\u0092\u0090\3\2\2\2\u0093")
-        buf.write("\u0094\5\30\r\2\u0094\35\3\2\2\2\u0095\u0096\5\b\5\2\u0096")
-        buf.write("\u0097\7\26\2\2\u0097\u0099\3\2\2\2\u0098\u0095\3\2\2")
-        buf.write("\2\u0099\u009c\3\2\2\2\u009a\u0098\3\2\2\2\u009a\u009b")
-        buf.write("\3\2\2\2\u009b\u009d\3\2\2\2\u009c\u009a\3\2\2\2\u009d")
-        buf.write("\u009e\5\b\5\2\u009e\37\3\2\2\2\13\'\63A]egt\u0090\u009a")
+        buf.write("\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22\3\2\3\2")
+        buf.write("\3\3\3\3\3\3\7\3*\n\3\f\3\16\3-\13\3\3\4\3\4\3\4\3\4\3")
+        buf.write("\4\3\4\3\4\3\4\3\4\5\48\n\4\3\4\3\4\3\4\3\4\3\4\3\4\3")
+        buf.write("\4\3\4\3\4\3\4\3\4\3\4\5\4F\n\4\3\5\3\5\3\5\3\6\3\6\3")
+        buf.write("\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\7\3\b\3\b\3\b\3\b\3\b")
+        buf.write("\3\t\3\t\3\t\3\t\3\t\3\t\3\t\5\tb\n\t\3\t\3\t\3\t\3\t")
+        buf.write("\3\t\3\t\7\tj\n\t\f\t\16\tm\13\t\3\n\3\n\3\n\3\n\3\n\3")
+        buf.write("\n\3\n\3\n\5\nw\n\n\3\13\3\13\3\13\3\13\3\13\3\13\3\13")
+        buf.write("\3\13\3\f\3\f\3\f\3\f\3\f\3\r\3\r\3\r\3\r\3\16\3\16\3")
+        buf.write("\16\3\16\3\16\3\16\3\17\3\17\3\20\3\20\3\21\3\21\3\21")
+        buf.write("\7\21\u0097\n\21\f\21\16\21\u009a\13\21\3\21\3\21\3\22")
+        buf.write("\3\22\3\22\7\22\u00a1\n\22\f\22\16\22\u00a4\13\22\3\22")
+        buf.write("\7\22\u00a7\n\22\f\22\16\22\u00aa\13\22\3\22\2\3\20\23")
+        buf.write("\2\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \"\2\5\4\2\24")
+        buf.write("\25\27\27\3\2\30\33\3\2\32\33\2\u00ac\2$\3\2\2\2\4+\3")
+        buf.write("\2\2\2\6E\3\2\2\2\bG\3\2\2\2\nJ\3\2\2\2\fL\3\2\2\2\16")
+        buf.write("U\3\2\2\2\20a\3\2\2\2\22n\3\2\2\2\24x\3\2\2\2\26\u0080")
+        buf.write("\3\2\2\2\30\u0085\3\2\2\2\32\u0089\3\2\2\2\34\u008f\3")
+        buf.write("\2\2\2\36\u0091\3\2\2\2 \u0098\3\2\2\2\"\u00a2\3\2\2\2")
+        buf.write("$%\5\4\3\2%\3\3\2\2\2&\'\5\6\4\2\'(\7\34\2\2(*\3\2\2\2")
+        buf.write(")&\3\2\2\2*-\3\2\2\2+)\3\2\2\2+,\3\2\2\2,\5\3\2\2\2-+")
+        buf.write("\3\2\2\2./\7\22\2\2/\60\7\3\2\2\60\61\5 \21\2\61\62\7")
+        buf.write("\4\2\2\62F\3\2\2\2\63\64\7\31\2\2\64\67\7\5\2\2\658\5")
+        buf.write("\20\t\2\668\5\34\17\2\67\65\3\2\2\2\67\66\3\2\2\28F\3")
+        buf.write("\2\2\29:\7\23\2\2:;\7\3\2\2;<\5 \21\2<=\7\4\2\2=F\3\2")
+        buf.write("\2\2>F\5\f\7\2?F\5\b\5\2@F\5\16\b\2AF\5\22\n\2BF\5\24")
+        buf.write("\13\2CD\7\6\2\2DF\5\20\t\2E.\3\2\2\2E\63\3\2\2\2E9\3\2")
+        buf.write("\2\2E>\3\2\2\2E?\3\2\2\2E@\3\2\2\2EA\3\2\2\2EB\3\2\2\2")
+        buf.write("EC\3\2\2\2F\7\3\2\2\2GH\5\n\6\2HI\7\31\2\2I\t\3\2\2\2")
+        buf.write("JK\t\2\2\2K\13\3\2\2\2LM\5\n\6\2MN\7\31\2\2NO\7\3\2\2")
+        buf.write("OP\5\"\22\2PQ\7\4\2\2QR\7\34\2\2RS\5\4\3\2ST\7\21\2\2")
+        buf.write("T\r\3\2\2\2UV\7\31\2\2VW\7\3\2\2WX\5 \21\2XY\7\4\2\2Y")
+        buf.write("\17\3\2\2\2Z[\b\t\1\2[b\5\34\17\2\\b\5\16\b\2]^\7\3\2")
+        buf.write("\2^_\5\20\t\2_`\7\4\2\2`b\3\2\2\2aZ\3\2\2\2a\\\3\2\2\2")
+        buf.write("a]\3\2\2\2bk\3\2\2\2cd\f\5\2\2de\7\13\2\2ej\5\20\t\6f")
+        buf.write("g\f\4\2\2gh\7\f\2\2hj\5\20\t\5ic\3\2\2\2if\3\2\2\2jm\3")
+        buf.write("\2\2\2ki\3\2\2\2kl\3\2\2\2l\21\3\2\2\2mk\3\2\2\2no\7\7")
+        buf.write("\2\2op\7\3\2\2pq\5\30\r\2qr\7\4\2\2rs\7\34\2\2sv\5\4\3")
+        buf.write("\2tw\7\21\2\2uw\5\26\f\2vt\3\2\2\2vu\3\2\2\2w\23\3\2\2")
+        buf.write("\2xy\7\b\2\2yz\7\3\2\2z{\5\30\r\2{|\7\4\2\2|}\7\34\2\2")
+        buf.write("}~\5\4\3\2~\177\7\21\2\2\177\25\3\2\2\2\u0080\u0081\7")
+        buf.write("\t\2\2\u0081\u0082\7\34\2\2\u0082\u0083\5\4\3\2\u0083")
+        buf.write("\u0084\7\21\2\2\u0084\27\3\2\2\2\u0085\u0086\5\34\17\2")
+        buf.write("\u0086\u0087\7\n\2\2\u0087\u0088\5\34\17\2\u0088\31\3")
+        buf.write("\2\2\2\u0089\u008a\7\31\2\2\u008a\u008b\7\26\2\2\u008b")
+        buf.write("\u008c\5\34\17\2\u008c\u008d\7\26\2\2\u008d\u008e\5\34")
+        buf.write("\17\2\u008e\33\3\2\2\2\u008f\u0090\t\3\2\2\u0090\35\3")
+        buf.write("\2\2\2\u0091\u0092\t\4\2\2\u0092\37\3\2\2\2\u0093\u0094")
+        buf.write("\5\34\17\2\u0094\u0095\7\26\2\2\u0095\u0097\3\2\2\2\u0096")
+        buf.write("\u0093\3\2\2\2\u0097\u009a\3\2\2\2\u0098\u0096\3\2\2\2")
+        buf.write("\u0098\u0099\3\2\2\2\u0099\u009b\3\2\2\2\u009a\u0098\3")
+        buf.write("\2\2\2\u009b\u009c\5\34\17\2\u009c!\3\2\2\2\u009d\u009e")
+        buf.write("\5\b\5\2\u009e\u009f\7\26\2\2\u009f\u00a1\3\2\2\2\u00a0")
+        buf.write("\u009d\3\2\2\2\u00a1\u00a4\3\2\2\2\u00a2\u00a0\3\2\2\2")
+        buf.write("\u00a2\u00a3\3\2\2\2\u00a3\u00a8\3\2\2\2\u00a4\u00a2\3")
+        buf.write("\2\2\2\u00a5\u00a7\5\b\5\2\u00a6\u00a5\3\2\2\2\u00a7\u00aa")
+        buf.write("\3\2\2\2\u00a8\u00a6\3\2\2\2\u00a8\u00a9\3\2\2\2\u00a9")
+        buf.write("#\3\2\2\2\u00aa\u00a8\3\2\2\2\f+\67Eaikv\u0098\u00a2\u00a8")
         return buf.getvalue()
 
 
@@ -80,7 +86,7 @@ class JeleniepParser ( Parser ):
     sharedContextCache = PredictionContextCache()
 
     literalNames = [ "<INVALID>", "'('", "')'", "'='", "'return'", "'if'", 
-                     "'for'", "'else'", "<INVALID>", "<INVALID>", "<INVALID>", 
+                     "'while'", "'else'", "<INVALID>", "<INVALID>", "<INVALID>", 
                      "'+'", "'*'", "'/'", "'-'", "'end'", "'write'", "'read'", 
                      "'int'", "'float'", "','", "'string'" ]
 
@@ -100,16 +106,19 @@ class JeleniepParser ( Parser ):
     RULE_function_call = 6
     RULE_expr = 7
     RULE_if_stmt = 8
-    RULE_for_stmt = 9
+    RULE_while_loop = 9
     RULE_else_stmt = 10
-    RULE_value = 11
-    RULE_numeric_value = 12
-    RULE_paramdefs = 13
-    RULE_function_paramdefs = 14
+    RULE_cmp_stmt = 11
+    RULE_while_params = 12
+    RULE_value = 13
+    RULE_numeric_value = 14
+    RULE_paramdefs = 15
+    RULE_function_paramdefs = 16
 
     ruleNames =  [ "prog", "block", "stat", "declare", "var_type", "function_declare", 
-                   "function_call", "expr", "if_stmt", "for_stmt", "else_stmt", 
-                   "value", "numeric_value", "paramdefs", "function_paramdefs" ]
+                   "function_call", "expr", "if_stmt", "while_loop", "else_stmt", 
+                   "cmp_stmt", "while_params", "value", "numeric_value", 
+                   "paramdefs", "function_paramdefs" ]
 
     EOF = Token.EOF
     T__0=1
@@ -180,7 +189,7 @@ class JeleniepParser ( Parser ):
         self.enterRule(localctx, 0, self.RULE_prog)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 30
+            self.state = 34
             self.block()
         except RecognitionException as re:
             localctx.exception = re
@@ -232,15 +241,15 @@ class JeleniepParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 37
+            self.state = 41
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << JeleniepParser.T__3) | (1 << JeleniepParser.T__4) | (1 << JeleniepParser.T__5) | (1 << JeleniepParser.WRITE) | (1 << JeleniepParser.READ) | (1 << JeleniepParser.INT) | (1 << JeleniepParser.DOUBLE) | (1 << JeleniepParser.STRING) | (1 << JeleniepParser.ID))) != 0):
-                self.state = 32
+                self.state = 36
                 self.stat()
-                self.state = 33
+                self.state = 37
                 self.match(JeleniepParser.NEWLINE)
-                self.state = 39
+                self.state = 43
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
@@ -270,23 +279,23 @@ class JeleniepParser ( Parser ):
 
 
 
-    class ForStmtContext(StatContext):
+    class WhileLoopContext(StatContext):
 
         def __init__(self, parser, ctx:ParserRuleContext): # actually a JeleniepParser.StatContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
-        def for_stmt(self):
-            return self.getTypedRuleContext(JeleniepParser.For_stmtContext,0)
+        def while_loop(self):
+            return self.getTypedRuleContext(JeleniepParser.While_loopContext,0)
 
 
         def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterForStmt" ):
-                listener.enterForStmt(self)
+            if hasattr( listener, "enterWhileLoop" ):
+                listener.enterWhileLoop(self)
 
         def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitForStmt" ):
-                listener.exitForStmt(self)
+            if hasattr( listener, "exitWhileLoop" ):
+                listener.exitWhileLoop(self)
 
 
     class ReadContext(StatContext):
@@ -456,39 +465,39 @@ class JeleniepParser ( Parser ):
         localctx = JeleniepParser.StatContext(self, self._ctx, self.state)
         self.enterRule(localctx, 4, self.RULE_stat)
         try:
-            self.state = 63
+            self.state = 67
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,2,self._ctx)
             if la_ == 1:
                 localctx = JeleniepParser.WriteContext(self, localctx)
                 self.enterOuterAlt(localctx, 1)
-                self.state = 40
+                self.state = 44
                 self.match(JeleniepParser.WRITE)
-                self.state = 41
+                self.state = 45
                 self.match(JeleniepParser.T__0)
-                self.state = 42
+                self.state = 46
                 self.paramdefs()
-                self.state = 43
+                self.state = 47
                 self.match(JeleniepParser.T__1)
                 pass
 
             elif la_ == 2:
                 localctx = JeleniepParser.AssignContext(self, localctx)
                 self.enterOuterAlt(localctx, 2)
-                self.state = 45
-                self.match(JeleniepParser.ID)
-                self.state = 46
-                self.match(JeleniepParser.T__2)
                 self.state = 49
+                self.match(JeleniepParser.ID)
+                self.state = 50
+                self.match(JeleniepParser.T__2)
+                self.state = 53
                 self._errHandler.sync(self)
                 la_ = self._interp.adaptivePredict(self._input,1,self._ctx)
                 if la_ == 1:
-                    self.state = 47
+                    self.state = 51
                     self.expr(0)
                     pass
 
                 elif la_ == 2:
-                    self.state = 48
+                    self.state = 52
                     self.value()
                     pass
 
@@ -498,57 +507,57 @@ class JeleniepParser ( Parser ):
             elif la_ == 3:
                 localctx = JeleniepParser.ReadContext(self, localctx)
                 self.enterOuterAlt(localctx, 3)
-                self.state = 51
+                self.state = 55
                 self.match(JeleniepParser.READ)
-                self.state = 52
+                self.state = 56
                 self.match(JeleniepParser.T__0)
-                self.state = 53
+                self.state = 57
                 self.paramdefs()
-                self.state = 54
+                self.state = 58
                 self.match(JeleniepParser.T__1)
                 pass
 
             elif la_ == 4:
                 localctx = JeleniepParser.DeclareFunctionContext(self, localctx)
                 self.enterOuterAlt(localctx, 4)
-                self.state = 56
+                self.state = 60
                 self.function_declare()
                 pass
 
             elif la_ == 5:
                 localctx = JeleniepParser.DeclareVariableContext(self, localctx)
                 self.enterOuterAlt(localctx, 5)
-                self.state = 57
+                self.state = 61
                 self.declare()
                 pass
 
             elif la_ == 6:
                 localctx = JeleniepParser.CallFunctionContext(self, localctx)
                 self.enterOuterAlt(localctx, 6)
-                self.state = 58
+                self.state = 62
                 self.function_call()
                 pass
 
             elif la_ == 7:
                 localctx = JeleniepParser.IfStmtContext(self, localctx)
                 self.enterOuterAlt(localctx, 7)
-                self.state = 59
+                self.state = 63
                 self.if_stmt()
                 pass
 
             elif la_ == 8:
-                localctx = JeleniepParser.ForStmtContext(self, localctx)
+                localctx = JeleniepParser.WhileLoopContext(self, localctx)
                 self.enterOuterAlt(localctx, 8)
-                self.state = 60
-                self.for_stmt()
+                self.state = 64
+                self.while_loop()
                 pass
 
             elif la_ == 9:
                 localctx = JeleniepParser.ReturnExprContext(self, localctx)
                 self.enterOuterAlt(localctx, 9)
-                self.state = 61
+                self.state = 65
                 self.match(JeleniepParser.T__3)
-                self.state = 62
+                self.state = 66
                 self.expr(0)
                 pass
 
@@ -596,9 +605,9 @@ class JeleniepParser ( Parser ):
         self.enterRule(localctx, 6, self.RULE_declare)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 65
+            self.state = 69
             self.var_type()
-            self.state = 66
+            self.state = 70
             self.match(JeleniepParser.ID)
         except RecognitionException as re:
             localctx.exception = re
@@ -646,7 +655,7 @@ class JeleniepParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 68
+            self.state = 72
             _la = self._input.LA(1)
             if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << JeleniepParser.INT) | (1 << JeleniepParser.DOUBLE) | (1 << JeleniepParser.STRING))) != 0)):
                 self._errHandler.recoverInline(self)
@@ -710,21 +719,21 @@ class JeleniepParser ( Parser ):
         self.enterRule(localctx, 10, self.RULE_function_declare)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 70
-            self.var_type()
-            self.state = 71
-            self.match(JeleniepParser.ID)
-            self.state = 72
-            self.match(JeleniepParser.T__0)
-            self.state = 73
-            self.function_paramdefs()
             self.state = 74
-            self.match(JeleniepParser.T__1)
+            self.var_type()
             self.state = 75
-            self.match(JeleniepParser.NEWLINE)
+            self.match(JeleniepParser.ID)
             self.state = 76
-            self.block()
+            self.match(JeleniepParser.T__0)
             self.state = 77
+            self.function_paramdefs()
+            self.state = 78
+            self.match(JeleniepParser.T__1)
+            self.state = 79
+            self.match(JeleniepParser.NEWLINE)
+            self.state = 80
+            self.block()
+            self.state = 81
             self.match(JeleniepParser.END)
         except RecognitionException as re:
             localctx.exception = re
@@ -769,13 +778,13 @@ class JeleniepParser ( Parser ):
         self.enterRule(localctx, 12, self.RULE_function_call)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 79
+            self.state = 83
             self.match(JeleniepParser.ID)
-            self.state = 80
+            self.state = 84
             self.match(JeleniepParser.T__0)
-            self.state = 81
+            self.state = 85
             self.paramdefs()
-            self.state = 82
+            self.state = 86
             self.match(JeleniepParser.T__1)
         except RecognitionException as re:
             localctx.exception = re
@@ -836,31 +845,31 @@ class JeleniepParser ( Parser ):
         self.enterRecursionRule(localctx, 14, self.RULE_expr, _p)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 91
+            self.state = 95
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,3,self._ctx)
             if la_ == 1:
-                self.state = 85
+                self.state = 89
                 self.value()
                 pass
 
             elif la_ == 2:
-                self.state = 86
+                self.state = 90
                 self.function_call()
                 pass
 
             elif la_ == 3:
-                self.state = 87
+                self.state = 91
                 self.match(JeleniepParser.T__0)
-                self.state = 88
+                self.state = 92
                 self.expr(0)
-                self.state = 89
+                self.state = 93
                 self.match(JeleniepParser.T__1)
                 pass
 
 
             self._ctx.stop = self._input.LT(-1)
-            self.state = 101
+            self.state = 105
             self._errHandler.sync(self)
             _alt = self._interp.adaptivePredict(self._input,5,self._ctx)
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
@@ -868,37 +877,37 @@ class JeleniepParser ( Parser ):
                     if self._parseListeners is not None:
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
-                    self.state = 99
+                    self.state = 103
                     self._errHandler.sync(self)
                     la_ = self._interp.adaptivePredict(self._input,4,self._ctx)
                     if la_ == 1:
                         localctx = JeleniepParser.ExprContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
-                        self.state = 93
+                        self.state = 97
                         if not self.precpred(self._ctx, 3):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 3)")
-                        self.state = 94
+                        self.state = 98
                         self.match(JeleniepParser.OPERATOR_STRONG)
-                        self.state = 95
+                        self.state = 99
                         self.expr(4)
                         pass
 
                     elif la_ == 2:
                         localctx = JeleniepParser.ExprContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
-                        self.state = 96
+                        self.state = 100
                         if not self.precpred(self._ctx, 2):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 2)")
-                        self.state = 97
+                        self.state = 101
                         self.match(JeleniepParser.OPERATOR_WEAK)
-                        self.state = 98
+                        self.state = 102
                         self.expr(3)
                         pass
 
              
-                self.state = 103
+                self.state = 107
                 self._errHandler.sync(self)
                 _alt = self._interp.adaptivePredict(self._input,5,self._ctx)
 
@@ -918,15 +927,9 @@ class JeleniepParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def expr(self, i:int=None):
-            if i is None:
-                return self.getTypedRuleContexts(JeleniepParser.ExprContext)
-            else:
-                return self.getTypedRuleContext(JeleniepParser.ExprContext,i)
+        def cmp_stmt(self):
+            return self.getTypedRuleContext(JeleniepParser.Cmp_stmtContext,0)
 
-
-        def COMPARATOR(self):
-            return self.getToken(JeleniepParser.COMPARATOR, 0)
 
         def NEWLINE(self):
             return self.getToken(JeleniepParser.NEWLINE, 0)
@@ -962,31 +965,27 @@ class JeleniepParser ( Parser ):
         self.enterRule(localctx, 16, self.RULE_if_stmt)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 104
-            self.match(JeleniepParser.T__4)
-            self.state = 105
-            self.match(JeleniepParser.T__0)
-            self.state = 106
-            self.expr(0)
-            self.state = 107
-            self.match(JeleniepParser.COMPARATOR)
             self.state = 108
-            self.expr(0)
+            self.match(JeleniepParser.T__4)
             self.state = 109
-            self.match(JeleniepParser.T__1)
+            self.match(JeleniepParser.T__0)
             self.state = 110
-            self.match(JeleniepParser.NEWLINE)
+            self.cmp_stmt()
             self.state = 111
+            self.match(JeleniepParser.T__1)
+            self.state = 112
+            self.match(JeleniepParser.NEWLINE)
+            self.state = 113
             self.block()
-            self.state = 114
+            self.state = 116
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [JeleniepParser.END]:
-                self.state = 112
+                self.state = 114
                 self.match(JeleniepParser.END)
                 pass
             elif token in [JeleniepParser.T__6]:
-                self.state = 113
+                self.state = 115
                 self.else_stmt()
                 pass
             else:
@@ -1001,27 +1000,15 @@ class JeleniepParser ( Parser ):
         return localctx
 
 
-    class For_stmtContext(ParserRuleContext):
+    class While_loopContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def ID(self):
-            return self.getToken(JeleniepParser.ID, 0)
-
-        def COMMA(self, i:int=None):
-            if i is None:
-                return self.getTokens(JeleniepParser.COMMA)
-            else:
-                return self.getToken(JeleniepParser.COMMA, i)
-
-        def value(self, i:int=None):
-            if i is None:
-                return self.getTypedRuleContexts(JeleniepParser.ValueContext)
-            else:
-                return self.getTypedRuleContext(JeleniepParser.ValueContext,i)
+        def cmp_stmt(self):
+            return self.getTypedRuleContext(JeleniepParser.Cmp_stmtContext,0)
 
 
         def NEWLINE(self):
@@ -1035,47 +1022,38 @@ class JeleniepParser ( Parser ):
             return self.getToken(JeleniepParser.END, 0)
 
         def getRuleIndex(self):
-            return JeleniepParser.RULE_for_stmt
+            return JeleniepParser.RULE_while_loop
 
         def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterFor_stmt" ):
-                listener.enterFor_stmt(self)
+            if hasattr( listener, "enterWhile_loop" ):
+                listener.enterWhile_loop(self)
 
         def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitFor_stmt" ):
-                listener.exitFor_stmt(self)
+            if hasattr( listener, "exitWhile_loop" ):
+                listener.exitWhile_loop(self)
 
 
 
 
-    def for_stmt(self):
+    def while_loop(self):
 
-        localctx = JeleniepParser.For_stmtContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 18, self.RULE_for_stmt)
+        localctx = JeleniepParser.While_loopContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 18, self.RULE_while_loop)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 116
-            self.match(JeleniepParser.T__5)
-            self.state = 117
-            self.match(JeleniepParser.T__0)
             self.state = 118
-            self.match(JeleniepParser.ID)
+            self.match(JeleniepParser.T__5)
             self.state = 119
-            self.match(JeleniepParser.COMMA)
+            self.match(JeleniepParser.T__0)
             self.state = 120
-            self.value()
+            self.cmp_stmt()
             self.state = 121
-            self.match(JeleniepParser.COMMA)
-            self.state = 122
-            self.value()
-            self.state = 123
             self.match(JeleniepParser.T__1)
-            self.state = 124
+            self.state = 122
             self.match(JeleniepParser.NEWLINE)
-            self.state = 125
+            self.state = 123
             self.block()
-
-            self.state = 126
+            self.state = 124
             self.match(JeleniepParser.END)
         except RecognitionException as re:
             localctx.exception = re
@@ -1123,14 +1101,128 @@ class JeleniepParser ( Parser ):
         self.enterRule(localctx, 20, self.RULE_else_stmt)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 128
+            self.state = 126
             self.match(JeleniepParser.T__6)
-            self.state = 129
+            self.state = 127
             self.match(JeleniepParser.NEWLINE)
-            self.state = 130
+            self.state = 128
             self.block()
-            self.state = 131
+            self.state = 129
             self.match(JeleniepParser.END)
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class Cmp_stmtContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def value(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(JeleniepParser.ValueContext)
+            else:
+                return self.getTypedRuleContext(JeleniepParser.ValueContext,i)
+
+
+        def COMPARATOR(self):
+            return self.getToken(JeleniepParser.COMPARATOR, 0)
+
+        def getRuleIndex(self):
+            return JeleniepParser.RULE_cmp_stmt
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterCmp_stmt" ):
+                listener.enterCmp_stmt(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitCmp_stmt" ):
+                listener.exitCmp_stmt(self)
+
+
+
+
+    def cmp_stmt(self):
+
+        localctx = JeleniepParser.Cmp_stmtContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 22, self.RULE_cmp_stmt)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 131
+            self.value()
+            self.state = 132
+            self.match(JeleniepParser.COMPARATOR)
+            self.state = 133
+            self.value()
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class While_paramsContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def ID(self):
+            return self.getToken(JeleniepParser.ID, 0)
+
+        def COMMA(self, i:int=None):
+            if i is None:
+                return self.getTokens(JeleniepParser.COMMA)
+            else:
+                return self.getToken(JeleniepParser.COMMA, i)
+
+        def value(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(JeleniepParser.ValueContext)
+            else:
+                return self.getTypedRuleContext(JeleniepParser.ValueContext,i)
+
+
+        def getRuleIndex(self):
+            return JeleniepParser.RULE_while_params
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterWhile_params" ):
+                listener.enterWhile_params(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitWhile_params" ):
+                listener.exitWhile_params(self)
+
+
+
+
+    def while_params(self):
+
+        localctx = JeleniepParser.While_paramsContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 24, self.RULE_while_params)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 135
+            self.match(JeleniepParser.ID)
+            self.state = 136
+            self.match(JeleniepParser.COMMA)
+            self.state = 137
+            self.value()
+            self.state = 138
+            self.match(JeleniepParser.COMMA)
+            self.state = 139
+            self.value()
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1176,11 +1268,11 @@ class JeleniepParser ( Parser ):
     def value(self):
 
         localctx = JeleniepParser.ValueContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 22, self.RULE_value)
+        self.enterRule(localctx, 26, self.RULE_value)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 133
+            self.state = 141
             _la = self._input.LA(1)
             if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << JeleniepParser.STRING_VALUE) | (1 << JeleniepParser.ID) | (1 << JeleniepParser.INT_VALUE) | (1 << JeleniepParser.DOUBLE_VALUE))) != 0)):
                 self._errHandler.recoverInline(self)
@@ -1226,11 +1318,11 @@ class JeleniepParser ( Parser ):
     def numeric_value(self):
 
         localctx = JeleniepParser.Numeric_valueContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 24, self.RULE_numeric_value)
+        self.enterRule(localctx, 28, self.RULE_numeric_value)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 135
+            self.state = 143
             _la = self._input.LA(1)
             if not(_la==JeleniepParser.INT_VALUE or _la==JeleniepParser.DOUBLE_VALUE):
                 self._errHandler.recoverInline(self)
@@ -1283,23 +1375,23 @@ class JeleniepParser ( Parser ):
     def paramdefs(self):
 
         localctx = JeleniepParser.ParamdefsContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 26, self.RULE_paramdefs)
+        self.enterRule(localctx, 30, self.RULE_paramdefs)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 142
+            self.state = 150
             self._errHandler.sync(self)
             _alt = self._interp.adaptivePredict(self._input,7,self._ctx)
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                 if _alt==1:
-                    self.state = 137
+                    self.state = 145
                     self.value()
-                    self.state = 138
+                    self.state = 146
                     self.match(JeleniepParser.COMMA) 
-                self.state = 144
+                self.state = 152
                 self._errHandler.sync(self)
                 _alt = self._interp.adaptivePredict(self._input,7,self._ctx)
 
-            self.state = 145
+            self.state = 153
             self.value()
         except RecognitionException as re:
             localctx.exception = re
@@ -1347,24 +1439,33 @@ class JeleniepParser ( Parser ):
     def function_paramdefs(self):
 
         localctx = JeleniepParser.Function_paramdefsContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 28, self.RULE_function_paramdefs)
+        self.enterRule(localctx, 32, self.RULE_function_paramdefs)
+        self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 152
+            self.state = 160
             self._errHandler.sync(self)
             _alt = self._interp.adaptivePredict(self._input,8,self._ctx)
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                 if _alt==1:
-                    self.state = 147
+                    self.state = 155
                     self.declare()
-                    self.state = 148
+                    self.state = 156
                     self.match(JeleniepParser.COMMA) 
-                self.state = 154
+                self.state = 162
                 self._errHandler.sync(self)
                 _alt = self._interp.adaptivePredict(self._input,8,self._ctx)
 
-            self.state = 155
-            self.declare()
+            self.state = 166
+            self._errHandler.sync(self)
+            _la = self._input.LA(1)
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << JeleniepParser.INT) | (1 << JeleniepParser.DOUBLE) | (1 << JeleniepParser.STRING))) != 0):
+                self.state = 163
+                self.declare()
+                self.state = 168
+                self._errHandler.sync(self)
+                _la = self._input.LA(1)
+
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)

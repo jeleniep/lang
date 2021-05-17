@@ -1,0 +1,31 @@
+float a(float s)
+    float k
+    if (s == 3.0)
+        k = s / 3.0 + 2.0
+        return k
+    else
+        k = s + 2.0
+        return k
+    end
+end
+
+int main()
+    int as
+    read(as)
+    float s
+
+    if (as == 3)
+        s = a(3.0)
+    else
+        s = a(2.0)
+    end
+    float x
+    x = 0.0
+    while (x <= 5.0)
+        s = a(x)
+        write(s)
+        x = x + 1.0
+    end
+
+    return 0
+end

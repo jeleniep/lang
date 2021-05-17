@@ -19,7 +19,8 @@ class JeleniepListener(ParseTreeListener):
         self.function = None
         self.function_param_defs = False
         self.calculation_list = []
-
+        self.function_calls = {}
+        self.returnStmt = False
     # Enter a parse tree produced by JeleniepParser#prog.
     def enterProg(self, ctx:JeleniepParser.ProgContext):
         pass
@@ -58,13 +59,17 @@ class JeleniepListener(ParseTreeListener):
     # Exit a parse tree produced by JeleniepParser#assign.
     def exitAssign(self, ctx:JeleniepParser.AssignContext):
         print("exit Assign")
+        # if (ctx.expr() and ctx.expr().function_call() and ctx.expr().function_call().ID() is not None):
+        #     last_id = self.function_calls[str(ctx.expr().function_call().ID())].pop()
+        #     print(last_id, "Grzegorz")
+        #     self.generator.assign(str(ctx.ID()), last_id)
         if (self.str):
             self.generator.assign(str(ctx.ID()), self.str)
             self.str = None
         else:
             currentMathCalc = MathCalculations()
             val_id = currentMathCalc.build(self.calculation_list, self.generator)
-            print("valID", val_id)
+            print("valID", str(ctx.ID()), val_id)
             self.generator.assign(str(ctx.ID()), val_id)
             self.calculation_list = []
 
@@ -112,6 +117,15 @@ class JeleniepListener(ParseTreeListener):
 
     # Exit a parse tree produced by JeleniepParser#ifStmt.
     def exitIfStmt(self, ctx:JeleniepParser.IfStmtContext):
+        pass
+
+    # Enter a parse tree produced by JeleniepParser#whileLoop.
+    def enterWhileLoop(self, ctx:JeleniepParser.WhileLoopContext):
+        print("enterWhileLoop")
+        pass
+
+    # Exit a parse tree produced by JeleniepParser#whileLoop.
+    def exitWhileLoop(self, ctx:JeleniepParser.WhileLoopContext):
         pass
 
 
@@ -166,8 +180,10 @@ class JeleniepListener(ParseTreeListener):
     # Enter a parse tree produced by JeleniepParser#function_call.
     def enterFunction_call(self, ctx:JeleniepParser.Function_callContext):
         print("enterFunction_call")
-        self.function_generator.call_function(str(ctx.ID()), ctx.paramdefs())
-
+        id = self.function_generator.call_function(str(ctx.ID()), ctx.paramdefs())
+        if (str(ctx.ID()) not in self.function_calls):
+            self.function_calls[str(ctx.ID())] = []
+        self.function_calls[str(ctx.ID())].insert(0, id)
         pass
 
     # Exit a parse tree produced by JeleniepParser#function_call.
@@ -177,15 +193,18 @@ class JeleniepListener(ParseTreeListener):
 
     # Enter a parse tree produced by JeleniepParser#expr.
     def enterExpr(self, ctx:JeleniepParser.ExprContext):
-        print("enterExpr", ctx.OPERATOR_STRONG(), ctx.OPERATOR_WEAK(), ctx.expr())
-        if (ctx.OPERATOR_STRONG() or ctx.OPERATOR_WEAK()):
-            self.calculation_list.append(str(ctx.OPERATOR_STRONG() or ctx.OPERATOR_WEAK()))
-        elif (ctx.value()):
-            if(ctx.value().STRING_VALUE()): 
-                self.str = ctx.value().STRING_VALUE()
-            else:
-                value = (ctx.value().INT_VALUE() or ctx.value().DOUBLE_VALUE() or ctx.value().ID())
-                self.calculation_list.append(str(value))
+        if (not self.returnStmt):
+            print("enterExpr", ctx.OPERATOR_STRONG(), ctx.OPERATOR_WEAK(), ctx.function_call())
+            if (ctx.function_call()):
+                self.calculation_list.append(str(ctx.function_call().ID()))
+            elif (ctx.OPERATOR_STRONG() or ctx.OPERATOR_WEAK()):
+                self.calculation_list.append(str(ctx.OPERATOR_STRONG() or ctx.OPERATOR_WEAK()))
+            elif (ctx.value()):
+                if(ctx.value().STRING_VALUE()): 
+                    self.str = ctx.value().STRING_VALUE()
+                else:
+                    value = (ctx.value().INT_VALUE() or ctx.value().DOUBLE_VALUE() or ctx.value().ID())
+                    self.calculation_list.append(str(value))
 
       
         if (ctx.value()):
@@ -194,6 +213,11 @@ class JeleniepListener(ParseTreeListener):
 
     # Exit a parse tree produced by JeleniepParser#expr.
     def exitExpr(self, ctx:JeleniepParser.ExprContext):
+        print("EXIT EXPR", self.calculation_list, self.function_calls)
+        for index, calc in enumerate(self.calculation_list):
+            if calc in self.function_calls:
+                print(self.function_calls[calc], "PO")
+                self.calculation_list[index] = self.function_calls[calc].pop()
         pass
 
 
@@ -217,6 +241,30 @@ class JeleniepListener(ParseTreeListener):
     def exitElse_stmt(self, ctx:JeleniepParser.Else_stmtContext):
         pass
 
+    # Enter a parse tree produced by JeleniepParser#while_loop.
+    def enterWhile_loop(self, ctx:JeleniepParser.While_loopContext):
+        pass
+
+    # Exit a parse tree produced by JeleniepParser#while_loop.
+    def exitWhile_loop(self, ctx:JeleniepParser.While_loopContext):
+        pass
+
+    # Enter a parse tree produced by JeleniepParser#cmp_stmt.
+    def enterCmp_stmt(self, ctx:JeleniepParser.Cmp_stmtContext):
+        pass
+
+    # Exit a parse tree produced by JeleniepParser#cmp_stmt.
+    def exitCmp_stmt(self, ctx:JeleniepParser.Cmp_stmtContext):
+        pass
+
+
+    # Enter a parse tree produced by JeleniepParser#while_params.
+    def enterWhile_params(self, ctx:JeleniepParser.While_paramsContext):
+        pass
+
+    # Exit a parse tree produced by JeleniepParser#while_params.
+    def exitWhile_params(self, ctx:JeleniepParser.While_paramsContext):
+        pass
 
     # Enter a parse tree produced by JeleniepParser#value.
     def enterValue(self, ctx:JeleniepParser.ValueContext):
@@ -259,20 +307,16 @@ class JeleniepListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by JeleniepParser#forStmt.
-    def enterForStmt(self, ctx:JeleniepParser.ForStmtContext):
-        pass
-
-    # Exit a parse tree produced by JeleniepParser#forStmt.
-    def exitForStmt(self, ctx:JeleniepParser.ForStmtContext):
-        pass
-
     # Enter a parse tree produced by JeleniepParser#returnExpr.
     def enterReturnExpr(self, ctx:JeleniepParser.ReturnExprContext):
+        self.returnStmt = True
+        self.function_generator.return_expression(ctx.expr().value())
+        print("enterReturn")
         pass
 
     # Exit a parse tree produced by JeleniepParser#returnExpr.
     def exitReturnExpr(self, ctx:JeleniepParser.ReturnExprContext):
+        self.returnStmt = False
         pass
 
     # Enter a parse tree produced by JeleniepParser#for_stmt.

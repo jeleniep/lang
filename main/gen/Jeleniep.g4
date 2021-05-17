@@ -13,7 +13,7 @@ stat: WRITE '(' paramdefs ')'			#write
 	| declare  #declareVariable
 	| function_call #callFunction
 	| if_stmt #ifStmt
-	| for_stmt #forStmt
+	| while_loop #whileLoop
 	| 'return' expr #returnExpr
 ;
 
@@ -40,16 +40,22 @@ expr:	value
     |	'(' expr ')'
 	;
 
-if_stmt: 'if' '('expr COMPARATOR expr')' NEWLINE block (END | else_stmt)
+if_stmt: 'if' '(' cmp_stmt ')' NEWLINE block (END | else_stmt)
 ;
 
-for_stmt: 'for' '('ID COMMA value COMMA value ')' NEWLINE block (END)
+while_loop: 'while' '(' cmp_stmt ')' NEWLINE block END
 ;
 
 else_stmt: 'else' NEWLINE block END
 ;
 
-COMPARATOR: '<'| '==' | '>' | '<=' | '>='
+cmp_stmt: value COMPARATOR value
+;
+
+while_params: ID COMMA value COMMA value 
+;
+
+COMPARATOR: '<'| '==' | '>' | '<=' | '>=' | '!='
 ;
 
 OPERATOR_STRONG: DIVIDE
@@ -105,7 +111,7 @@ COMMA: ','
 paramdefs:  (value COMMA)* value      
 ;
 
-function_paramdefs:  (declare COMMA)* declare   
+function_paramdefs:  (declare COMMA)* (declare)*   
 ;
 
 STRING: 'string'
