@@ -16,8 +16,9 @@ class WhileLLVMGenerator:
         val_type = ""
         for i in range(2):
             if (cmp.value(i).ID() is not None):
-                values.append(f"%{str(cmp.value(i).ID())}")
-                val_type = GeneratorHelpers.find_variable(str(cmp.value(i).ID()), self.generator.variables, self.generator.var_range)
+                name = str(cmp.value(i).ID())
+                val_type = GeneratorHelpers.find_variable(name, self.generator.variables, self.generator.var_range)
+                values.append(f"%{name}")
             else:
                 val = str(
                     cmp.value(i).INT_VALUE() or  

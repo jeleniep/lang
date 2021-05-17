@@ -1,7 +1,9 @@
+float s
+
 float a(float s)
     float k
     if (s == 3.0)
-        k = s / 3.0 + 2.0
+        k = (s / 3.0 + 2.0 ) / 5
         return k
     else
         k = s + 2.0
@@ -17,14 +19,16 @@ int main()
     if (as == 3)
         s = a(3.0)
     else
-        s = a(2.0)
+        s = a(2.0) / as
     end
-    float x
-    x = 0.0
-    while (x <= 5.0)
-        s = a(x)
+    int x
+    int k
+    k = 2
+    write(k)
+    x = 0
+    while (x <= 5)
         write(s)
-        x = x + 1.0
+        x = x + 1
     end
 
     return 0

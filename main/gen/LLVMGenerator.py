@@ -50,12 +50,14 @@ class LLVMGenerator:
         var_type_b = var_type
       
       if (var_type_a == 'internal'):
-        if (a in self.returned_types):
-          var_type_a = self.returned_types[a]
+        print("inter2", a, self.returned_types)
+        if (a in self.returned_types[self.var_range]):
+          var_type_a = self.returned_types[self.var_range][a]
 
       if (var_type_b == 'internal'):
-        if (b in self.returned_types):
-          var_type_b = self.returned_types[b]
+        print("inter2", b, self.returned_types)
+        if (b in self.returned_types[self.var_range]):
+          var_type_b = self.returned_types[self.var_range][b]
 
       return a, b, var_type_a, var_type_b
 
@@ -71,11 +73,28 @@ class LLVMGenerator:
     def add(self, val_a, val_b):
       a, b, var_type_a, var_type_b = self.load_values(val_a, val_b)
       if (var_type_a == 'double' or var_type_b == 'double'):
-        a = a if (a[0] == '%') else str(float(a))
-        b = b if (b[0] == '%') else str(float(b)) 
+        print("ab2", a ,b, var_type_a, var_type_b)
+        if (a[0] == '%'):
+          if (var_type_a == 'i32'):
+            self.llvm_text[self.context] += f"%{self.counter[self.context]} = sitofp i32 {a} to double\n"
+            self.returned_types[self.var_range][f"%{self.counter[self.context]}"] = "double"      
+            a = f"%{self.counter[self.context]}"
+            self.counter[self.context] += 1
+        else:
+          a =  str(float(a))
+        if (b[0] == '%'):
+          if (var_type_b == 'i32'):
+            self.llvm_text[self.context] += f"%{self.counter[self.context]} = sitofp i32 {b} to double\n"      
+            self.returned_types[self.var_range][f"%{self.counter[self.context]}"] = "double"      
+            b = f"%{self.counter[self.context]}"
+            self.counter[self.context] += 1
+        else:
+          b =  str(float(b))
         self.llvm_text[self.context] += f"%{self.counter[self.context]} = fadd double {a}, {b}\n"      
+        self.returned_types[self.var_range][f"%{self.counter[self.context]}"] = "double"      
       else:
         self.llvm_text[self.context] += f"%{self.counter[self.context]} = add nsw i32 {a}, {b}\n"      
+        self.returned_types[self.var_range][f"%{self.counter[self.context]}"] = "i32"      
       self.counter[self.context] += 1
       return f"%{self.counter[self.context]-1}"
 
@@ -83,11 +102,27 @@ class LLVMGenerator:
       a, b, var_type_a, var_type_b = self.load_values(val_a, val_b)
       print("var_type_a, var_type_b", var_type_a, var_type_b, a, b)
       if (var_type_a == 'double' or var_type_b == 'double'):
-        a = a if (a[0] == '%') else str(float(a))
-        b = b if (b[0] == '%') else str(float(b))
+        if (a[0] == '%'):
+          if (var_type_a == 'i32'):
+            self.llvm_text[self.context] += f"%{self.counter[self.context]} = sitofp i32 {a} to double\n"      
+            self.returned_types[self.var_range][f"%{self.counter[self.context]}"] = "double"      
+            a = f"%{self.counter[self.context]}"
+            self.counter[self.context] += 1
+        else:
+          a =  str(float(a))
+        if (b[0] == '%'):
+          if (var_type_b == 'i32'):
+            self.llvm_text[self.context] += f"%{self.counter[self.context]} = sitofp i32 {b} to double\n"      
+            self.returned_types[self.var_range][f"%{self.counter[self.context]}"] = "double"      
+            b = f"%{self.counter[self.context]}"
+            self.counter[self.context] += 1
+        else:
+          b =  str(float(b))
         self.llvm_text[self.context] += f"%{self.counter[self.context]} = fsub double {a}, {b}\n"      
+        self.returned_types[self.var_range][f"%{self.counter[self.context]}"] = "double"      
       else:
         self.llvm_text[self.context] += f"%{self.counter[self.context]} = sub nsw i32 {a}, {b}\n"      
+        self.returned_types[self.var_range][f"%{self.counter[self.context]}"] = "i32"      
       self.counter[self.context] += 1
       return f"%{self.counter[self.context]-1}"
 
@@ -95,11 +130,27 @@ class LLVMGenerator:
       a, b, var_type_a, var_type_b = self.load_values(val_a, val_b)
       if (var_type_a == 'double' or var_type_b == 'double'):
         print(val_a, a, "as", type(a))
-        a = a if (a[0] == '%') else str(float(a))
-        b = b if (b[0] == '%') else str(float(b)) 
+        if (a[0] == '%'):
+          if (var_type_a == 'i32'):
+            self.llvm_text[self.context] += f"%{self.counter[self.context]} = sitofp i32 {a} to double\n"      
+            self.returned_types[self.var_range][f"%{self.counter[self.context]}"] = "double"      
+            a = f"%{self.counter[self.context]}"
+            self.counter[self.context] += 1
+        else:
+          a =  str(float(a))
+        if (b[0] == '%'):
+          if (var_type_b == 'i32'):
+            self.llvm_text[self.context] += f"%{self.counter[self.context]} = sitofp i32 {b} to double\n"      
+            self.returned_types[self.var_range][f"%{self.counter[self.context]}"] = "double"      
+            b = f"%{self.counter[self.context]}"
+            self.counter[self.context] += 1
+        else:
+          b =  str(float(b))
         self.llvm_text[self.context] += f"%{self.counter[self.context]} = fmul double {a}, {b}\n"      
+        self.returned_types[self.var_range][f"%{self.counter[self.context]}"] = "double"      
       else:
         self.llvm_text[self.context] += f"%{self.counter[self.context]} = mul nsw i32 {a}, {b}\n"      
+        self.returned_types[self.var_range][f"%{self.counter[self.context]}"] = "i32"      
       self.counter[self.context] += 1
       return f"%{self.counter[self.context]-1}"
 
@@ -107,19 +158,38 @@ class LLVMGenerator:
       a, b, var_type_a, var_type_b = self.load_values(val_a, val_b)
       print("types", var_type_a, var_type_b)
       if (var_type_a == 'double' or var_type_b == 'double'):
-        a = a if (a[0] == '%') else str(float(a))
-        b = b if (b[0] == '%') else str(float(b)) 
+        if (a[0] == '%'):
+          if (var_type_a == 'i32'):
+            self.llvm_text[self.context] += f"%{self.counter[self.context]} = sitofp i32 {a} to double\n"      
+            self.returned_types[self.var_range][f"%{self.counter[self.context]}"] = "double"      
+            a = f"%{self.counter[self.context]}"
+            self.counter[self.context] += 1
+        else:
+          a =  str(float(a))
+        if (b[0] == '%'):
+          if (var_type_b == 'i32'):
+            self.llvm_text[self.context] += f"%{self.counter[self.context]} = sitofp i32 {b} to double\n"      
+            self.returned_types[self.var_range][f"%{self.counter[self.context]}"] = "double"      
+            b = f"%{self.counter[self.context]}"
+            self.counter[self.context] += 1
+        else:
+          b =  str(float(b))
         self.llvm_text[self.context] += f"%{self.counter[self.context]} = fdiv double {a}, {b}\n"      
+        self.returned_types[self.var_range][f"%{self.counter[self.context]}"] = "double"      
       else:
         self.llvm_text[self.context] += f"%{self.counter[self.context]} = div nsw i32 {a}, {b}\n"      
+        self.returned_types[self.var_range][f"%{self.counter[self.context]}"] = "i32"      
       self.counter[self.context] += 1
       return f"%{self.counter[self.context]-1}"
 
     def declare(self, id, var_type):
       name = str(id)
       var_type_str = str(var_type)
-      print(var_type_str, "123123123")
-      if name not in self.variables[self.var_range]:
+      print(var_type_str, "123123123, var_range", self.var_range)
+      if (self.var_range == "base"):
+        start_value = 0.0 if (GeneratorHelpers.declare_types[var_type_str] == "double") else 0
+        self.llvm_text["header"] += f"@{name} = global {GeneratorHelpers.declare_types[var_type_str]} {start_value} \n"
+      elif name not in self.variables[self.var_range]:
         if (var_type_str == "string"):
           self.llvm_text[self.context] += f"%{name} = alloca {GeneratorHelpers.declare_types[var_type_str]}\n"
           self.llvm_text[self.context] += f"%{self.counter[self.context]} = call noalias i8* @malloc(i64 255) #3\n"

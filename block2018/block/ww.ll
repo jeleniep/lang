@@ -3,7 +3,7 @@ source_filename = "block.c"
 target datalayout = "e-m:e-i64:64-f80:128-n8:16:32:64-S128"
 target triple = "x86_64-pc-linux-gnu"
 
-@sas = global i32 1231, align 4
+sas = global i32 0, align 4
 @.str = private unnamed_addr constant [6 x i8] c"%d %f\00", align 1
 
 ; Function Attrs: noinline nounwind optnone uwtable
@@ -13,7 +13,8 @@ define i32 @main() #0 {
   %3 = alloca double, align 8
   %4 = alloca float, align 4
   store i32 0, i32* %1, align 4
-  %5 = load i32, i32* @sas, align 4
+  store i32 97563, i32* sas, align 4
+  %5 = load i32, i32* sas, align 4
   %6 = add nsw i32 1, %5
   store i32 %6, i32* %2, align 4
   store double 0.000000e+00, double* %3, align 8

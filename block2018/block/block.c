@@ -15,9 +15,10 @@
 
 //   return s;
 // }
-int sas = 1231;
+int sas;
 int main()
 {
+  sas = 97563;
   // double a = 0.0, b = 0.0, c = 1.0, d = 0.0;
 
   // d = 1.2;

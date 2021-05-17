@@ -39,12 +39,13 @@ class GeneratorHelpers:
     @staticmethod
     def find_variable(var_name, variables, var_range):
         print(var_name, variables)
+        global_var_name = f"@{var_name}"
         print(variables[var_range][var_name], var_name)
         if var_name in variables[var_range]:
           var_type = variables[var_range][var_name]
           return var_type
-        elif var_name in variables["base"]:
-            var_type = variables[var_range][var_name]
+        elif global_var_name in variables["base"]:
+            var_type = variables[var_range][global_var_name]
             return var_type
         else:
           raise Exception(f"ERROR: Variable {var_name} not exist")
@@ -52,12 +53,14 @@ class GeneratorHelpers:
     @staticmethod
     def checkType(var):
         try: 
-            float(var)
+            temp = int(var)
+            if (str(temp) == var):
+                return 'int'
             return 'double'
         except ValueError:
             try: 
-                int(var)
-                return 'int'
+                float(var)
+                return 'double'
             except ValueError:
                 if (var[0] == "%"):
                     return 'internal'

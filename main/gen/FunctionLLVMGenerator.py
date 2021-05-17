@@ -24,6 +24,7 @@ class FunctionLLVMGenerator:
         }
         self.generator.context = "function"
         self.generator.var_range = name
+        self.generator.returned_types[self.generator.var_range] = {}
         self.generator.variables[name] = {}
         self.returned_type = GeneratorHelpers.declare_types[returned_type]
 
@@ -113,7 +114,7 @@ class FunctionLLVMGenerator:
         self.generator.llvm_text[self.generator.context] += f"%{self.generator.counter[self.generator.context]} = call {returned_type} @{name}({args_string})\n"
         self.generator.counter[self.generator.context] += 1
         returned_id = f"%{self.generator.counter[self.generator.context] - 1}"
-        self.generator.returned_types[returned_id] = returned_type
+        self.generator.returned_types[self.generator.var_range][returned_id] = returned_type
         return returned_id
 
     def end_declare_function(self):
